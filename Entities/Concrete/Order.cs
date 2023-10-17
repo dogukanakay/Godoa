@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    internal class Orders : IEntity
+    internal class Order : IEntity
     {
         [Key]
         public int OrderId { get; set; }
