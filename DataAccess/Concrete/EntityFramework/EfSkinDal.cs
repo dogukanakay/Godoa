@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfProductDal : EfEntityRepositoryBase<Product,GodoaContext> , IProductDal
+    public class EfSkinDal : EfEntityRepositoryBase<Skin,GodoaContext>, ISkinDal
     {
     }
 }
