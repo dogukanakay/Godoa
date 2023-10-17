@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Godoa\Core.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{ED5EB259-E05E-4915-B949-CC3591D6C813}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{49EA6477-67A8-43EF-84F2-7BC8299A2E78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ED5EB259-E05E-4915-B949-CC3591D6C813}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED5EB259-E05E-4915-B949-CC3591D6C813}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED5EB259-E05E-4915-B949-CC3591D6C813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49EA6477-67A8-43EF-84F2-7BC8299A2E78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49EA6477-67A8-43EF-84F2-7BC8299A2E78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49EA6477-67A8-43EF-84F2-7BC8299A2E78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49EA6477-67A8-43EF-84F2-7BC8299A2E78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
