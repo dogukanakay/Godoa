@@ -9,9 +9,10 @@ namespace DataAccess.Concrete.EntityFramework.Context
 {
     public class GodoaContext : DbContext
     {
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=ABRA; Database= Godoa; Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-DNUIALQ\SQLKOD; Database= Godoa; Trusted_Connection=true");
         }
     }
 }

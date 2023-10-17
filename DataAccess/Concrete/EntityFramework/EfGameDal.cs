@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    internal class EfProductDal:EfEntityRepositoryBase<Product,GodoaContext> ,IProductDal
+    public class EfGameDal:EfEntityRepositoryBase<Game,GodoaContext>,IGameDal
     {
     }
 }

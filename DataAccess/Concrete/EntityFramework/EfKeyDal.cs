@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Context;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    internal class EfProductDal:EfEntityRepositoryBase<Product,GodoaContext> ,IProductDal
+    public class EfKeyDal:EfEntityRepositoryBase<Keys,GodoaContext>,IKeyDal
     {
     }
 }

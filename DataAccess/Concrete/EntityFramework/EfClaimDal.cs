@@ -1,7 +1,7 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Context;
-using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    internal class EfProductDal:EfEntityRepositoryBase<Product,GodoaContext> ,IProductDal
+    public class EfClaimDal : EfEntityRepositoryBase<Claim, GodoaContext>, IClaimDal
     {
     }
 }
