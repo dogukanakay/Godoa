@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    internal class Order : IEntity
+    public class Order : IEntity
     {
         [Key]
         public int OrderId { get; set; }
@@ -16,7 +16,7 @@ namespace Entities.Concrete
         public int UserId { get; set; }
         public int Amount { get; set; }
         public float TotalPrice { get; set; }
-        public String? TradeUrl { get; set; }
+        public string? TradeUrl { get; set; }
         public bool IsConfirmed { get; set; }
     }
 }
