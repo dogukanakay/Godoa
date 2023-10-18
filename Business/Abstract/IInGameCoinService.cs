@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IInGameCoin
+    public interface IInGameCoinService
     {       
             IResult Add(InGameCoin ınGameCoin);
             IResult Delete(InGameCoin ınGameCoin);
             IResult Update(InGameCoin ınGameCoin);
 
-            IDataResult<List<InGameCoin>> GetAll();
-            IDataResult<InGameCoin> Get();
+            IDataResult<List<InGameCoin>> GetAll(); 
+            IDataResult<InGameCoin> GetById(int inGameCoinId); 
         
     }
 }
