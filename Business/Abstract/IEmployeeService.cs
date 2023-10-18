@@ -16,7 +16,7 @@ namespace Business.Abstract
             IResult Update(Employee employee);
 
             IDataResult<List<Employee>> GetAll();
-            IDataResult<Employee> Get();
+            IDataResult<Employee> GetById(int emloyeeId);
        
     }
 }

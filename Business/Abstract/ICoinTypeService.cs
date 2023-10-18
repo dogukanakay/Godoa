@@ -15,6 +15,6 @@ namespace Business.Abstract
         IResult Update(CoinType coinType);
 
         IDataResult<List<CoinType>> GetAll();
-        IDataResult<CoinType> Get();
+        IDataResult<CoinType> GetById(int coinTypeId);
     }
 }

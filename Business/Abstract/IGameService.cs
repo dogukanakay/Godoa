@@ -15,6 +15,6 @@ namespace Business.Abstract
         IResult Update(Game game);
 
         IDataResult<List<Game>> GetAll();
-        IDataResult<Game> Get();
+        IDataResult<Game> GetById(int gameId);
     }
 }
