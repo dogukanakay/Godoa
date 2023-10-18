@@ -15,6 +15,6 @@ namespace Business.Abstract
         IResult Update(Seller seller);
 
         IDataResult<List<Seller>> GetAll();
-        IDataResult<Seller> Get();
+        IDataResult<Seller> GetById(int sellerId);
     }
 }

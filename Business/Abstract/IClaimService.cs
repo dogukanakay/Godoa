@@ -11,14 +11,14 @@ namespace Business.Abstract
 {
     public interface IClaimService
     {
-        
-            IResult Add(Claim claim);
-            IResult Delete(Claim claim);
-            IResult Update(Claim claim);
 
-            IDataResult<List<Claim>> GetAll();
-            IDataResult<Claim> Get();
+        IResult Add(Claim claim);
+        IResult Delete(Claim claim);
+        IResult Update(Claim claim);
 
-        
+        IDataResult<List<Claim>> GetAll();
+        IDataResult<Claim> GetById(int claimId);
+
+
     }
 }

@@ -15,6 +15,6 @@ namespace Business.Abstract
         IResult Update(Order order);
 
         IDataResult<List<Order>> GetAll();
-        IDataResult<Order> Get();
+        IDataResult<Order> GetById(int orderId);
     }
 }

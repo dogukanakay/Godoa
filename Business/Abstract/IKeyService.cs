@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IKeysService
+    public interface IKeyService
     {
         IResult Add(Keys keys);
         IResult Delete(Keys keys);
         IResult Update(Keys keys);
 
         IDataResult<List<Keys>> GetAll();
-        IDataResult<Keys> Get();
+        IDataResult<Keys> GetById(int keysId);
     }
 }

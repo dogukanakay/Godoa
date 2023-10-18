@@ -15,6 +15,6 @@ namespace Business.Abstract
         IResult Update(Payment payment);
 
         IDataResult<List<Payment>> GetAll();
-        IDataResult<Payment> Get();
+        IDataResult<Payment> GetById(int paymentId);
     }
 }

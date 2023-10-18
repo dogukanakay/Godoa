@@ -15,6 +15,6 @@ namespace Business.Abstract
         IResult Update(Platform platform);
 
         IDataResult<List<Platform>> GetAll();
-        IDataResult<Platform> Get();
+        IDataResult<Platform> GetById(int platformId);
     }
 }

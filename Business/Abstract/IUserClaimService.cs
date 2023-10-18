@@ -16,6 +16,6 @@ namespace Business.Abstract
         IResult Update(UserClaim userClaim);
 
         IDataResult<List<UserClaim>> GetAll();
-        IDataResult<UserClaim> Get();
+        IDataResult<UserClaim> GetById(int userClaimId);
     }
 }
