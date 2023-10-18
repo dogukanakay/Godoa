@@ -15,6 +15,6 @@ namespace Business.Abstract
         IResult Update(Skin skin);
 
         IDataResult<List<Skin>> GetAll();
-        IDataResult<Skin> Get();
+        IDataResult<Skin> GetById(int skinId);
     }
 }
