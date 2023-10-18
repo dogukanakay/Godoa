@@ -30,7 +30,7 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Category> Get(int categoryId)
+        public IDataResult<Category> GetById(int categoryId)
         {
             return new SuccessDataResult<Category>(_categoryDal.Get(s => s.CategoryId == categoryId));
         
