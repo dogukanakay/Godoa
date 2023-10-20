@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,18 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
 
+        }
+
+
+        [HttpPost("add")]
+        public IActionResult Add(Platform platform) 
+        {
+            var result = _platformService.Add(platform);
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }
