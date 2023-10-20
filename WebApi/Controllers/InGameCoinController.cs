@@ -7,54 +7,49 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlatformController : ControllerBase
+    public class InGameCoinController : ControllerBase
     {
-        IPlatformService _platformService;
-
-
-        public PlatformController(IPlatformService platformService)
+        IInGameCoinService _inGameCoinService;
+        public InGameCoinController(IInGameCoinService inGameCoinService)
         {
-            _platformService = platformService;
+            _inGameCoinService = inGameCoinService;
         }
-
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = _inGameCoinService.GetAll();
 
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
 
         }
-
-
         [HttpPost("add")]
-        public IActionResult Add(Platform platform) 
+        public IActionResult Add(InGameCoin inGameCoin)
         {
-            var result = _platformService.Add(platform);
-            if(result.Success)
+            var result = _inGameCoinService.Add(inGameCoin);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Platform platform)
+        public IActionResult Delete(InGameCoin inGameCoin)
         {
-            var result=_platformService.Delete(platform);
-            if(result.Success)
+            var result = _inGameCoinService.Delete(inGameCoin);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result) ;
+            return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Platform platform)
-        { 
-            var result = _platformService.Update(platform);
+        public IActionResult Update(InGameCoin inGameCoin)
+        {
+            var result = _inGameCoinService.Update(inGameCoin);
             if (result.Success)
             {
                 return Ok(result);
@@ -62,10 +57,10 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpPost("GetById")]
-        public IActionResult GetById(int platformId)
-        { 
-            var result = _platformService.GetById(platformId);
-            if(result.Success)
+        public IActionResult GetById(int inGameCoinId)
+        {
+            var result = _inGameCoinService.GetById(inGameCoinId);
+            if (result.Success)
             { return Ok(result); }
             return BadRequest(result);
         }

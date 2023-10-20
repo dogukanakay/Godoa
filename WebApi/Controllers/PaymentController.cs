@@ -7,54 +7,49 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlatformController : ControllerBase
+    public class PaymentController : ControllerBase
     {
-        IPlatformService _platformService;
-
-
-        public PlatformController(IPlatformService platformService)
+        IPaymentService _paymentService;
+        public PaymentController(IPaymentService paymentService)
         {
-            _platformService = platformService;
+            _paymentService = paymentService;
         }
-
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = _paymentService.GetAll();
 
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
 
         }
-
-
         [HttpPost("add")]
-        public IActionResult Add(Platform platform) 
+        public IActionResult Add(Payment payment)
         {
-            var result = _platformService.Add(platform);
-            if(result.Success)
+            var result = _paymentService.Add(payment);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Platform platform)
+        public IActionResult Delete(Payment payment)
         {
-            var result=_platformService.Delete(platform);
-            if(result.Success)
+            var result = _paymentService.Delete(payment);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result) ;
+            return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Platform platform)
-        { 
-            var result = _platformService.Update(platform);
+        public IActionResult Update(Payment payment)
+        {
+            var result = _paymentService.Update(payment);
             if (result.Success)
             {
                 return Ok(result);
@@ -62,10 +57,10 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpPost("GetById")]
-        public IActionResult GetById(int platformId)
-        { 
-            var result = _platformService.GetById(platformId);
-            if(result.Success)
+        public IActionResult GetById(int paymentId)
+        {
+            var result = _paymentService.GetById(paymentId);
+            if (result.Success)
             { return Ok(result); }
             return BadRequest(result);
         }

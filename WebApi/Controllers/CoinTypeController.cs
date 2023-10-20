@@ -7,22 +7,19 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlatformController : ControllerBase
+    public class CoinTypeController : ControllerBase
     {
-        IPlatformService _platformService;
-
-
-        public PlatformController(IPlatformService platformService)
+        ICoinTypeService _coinTypeService;
+        public CoinTypeController(ICoinTypeService coinTypeService)
         {
-            _platformService = platformService;
+            _coinTypeService=coinTypeService;
         }
-
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = _coinTypeService.GetAll();
 
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
@@ -32,29 +29,29 @@ namespace WebApi.Controllers
 
 
         [HttpPost("add")]
-        public IActionResult Add(Platform platform) 
+        public IActionResult Add(CoinType coinType)
         {
-            var result = _platformService.Add(platform);
-            if(result.Success)
+            var result = _coinTypeService.Add(coinType);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Platform platform)
+        public IActionResult Delete(CoinType coinType)
         {
-            var result=_platformService.Delete(platform);
-            if(result.Success)
+            var result = _coinTypeService.Delete(coinType);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result) ;
+            return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Platform platform)
-        { 
-            var result = _platformService.Update(platform);
+        public IActionResult Update(CoinType coinType)
+        {
+            var result = _coinTypeService.Update(coinType);
             if (result.Success)
             {
                 return Ok(result);
@@ -62,12 +59,12 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpPost("GetById")]
-        public IActionResult GetById(int platformId)
-        { 
-            var result = _platformService.GetById(platformId);
-            if(result.Success)
+        public IActionResult GetById(int coinTypeId)
+        {
+            var result = _coinTypeService.GetById(coinTypeId);
+            if (result.Success)
             { return Ok(result); }
             return BadRequest(result);
         }
-    }
+1    }
 }

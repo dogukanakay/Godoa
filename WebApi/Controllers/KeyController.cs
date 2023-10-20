@@ -2,59 +2,55 @@
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlatformController : ControllerBase
+    public class KeyController : ControllerBase
     {
-        IPlatformService _platformService;
-
-
-        public PlatformController(IPlatformService platformService)
+        IKeyService _keyService;
+        public KeyController(IKeyService keyService)
         {
-            _platformService = platformService;
+            _keyService = keyService;
         }
-
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = _keyService.GetAll();
 
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
 
         }
-
-
         [HttpPost("add")]
-        public IActionResult Add(Platform platform) 
+        public IActionResult Add(Keys keys)
         {
-            var result = _platformService.Add(platform);
-            if(result.Success)
+            var result = _keyService.Add(keys);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Platform platform)
+        public IActionResult Delete(Keys keys)
         {
-            var result=_platformService.Delete(platform);
-            if(result.Success)
+            var result = _keyService.Delete(keys);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result) ;
+            return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Platform platform)
-        { 
-            var result = _platformService.Update(platform);
+        public IActionResult Update(Keys keys)
+        {
+            var result = _keyService.Update(keys);
             if (result.Success)
             {
                 return Ok(result);
@@ -62,12 +58,13 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpPost("GetById")]
-        public IActionResult GetById(int platformId)
-        { 
-            var result = _platformService.GetById(platformId);
-            if(result.Success)
+        public IActionResult GetById(int keysId)
+        {
+            var result = _keyService.GetById(keysId);
+            if (result.Success)
             { return Ok(result); }
             return BadRequest(result);
         }
+
     }
 }

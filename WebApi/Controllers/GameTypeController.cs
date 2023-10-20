@@ -2,27 +2,25 @@
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.AccessControl;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlatformController : ControllerBase
+    public class GameTypeController : ControllerBase
     {
-        IPlatformService _platformService;
-
-
-        public PlatformController(IPlatformService platformService)
+        IGameTypeService _gameTypeService;
+        public GameTypeController(IGameTypeService gameTypeService)
         {
-            _platformService = platformService;
+            _gameTypeService = gameTypeService;
         }
-
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = _gameTypeService.GetAll();
 
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
@@ -30,31 +28,30 @@ namespace WebApi.Controllers
 
         }
 
-
         [HttpPost("add")]
-        public IActionResult Add(Platform platform) 
+        public IActionResult Add(GameType gameType)
         {
-            var result = _platformService.Add(platform);
-            if(result.Success)
+            var result = _gameTypeService.Add(gameType);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Platform platform)
+        public IActionResult Delete(GameType gameType)
         {
-            var result=_platformService.Delete(platform);
-            if(result.Success)
+            var result = _gameTypeService.Delete(gameType);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result) ;
+            return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Platform platform)
-        { 
-            var result = _platformService.Update(platform);
+        public IActionResult Update(GameType gameType)
+        {
+            var result = _gameTypeService.Update(gameType);
             if (result.Success)
             {
                 return Ok(result);
@@ -62,10 +59,10 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpPost("GetById")]
-        public IActionResult GetById(int platformId)
-        { 
-            var result = _platformService.GetById(platformId);
-            if(result.Success)
+        public IActionResult GetById(int gameTypeId)
+        {
+            var result = _gameTypeService.GetById(gameTypeId);
+            if (result.Success)
             { return Ok(result); }
             return BadRequest(result);
         }

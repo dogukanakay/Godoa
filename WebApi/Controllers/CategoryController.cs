@@ -7,22 +7,21 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlatformController : ControllerBase
+    public class CategoryController : ControllerBase
     {
-        IPlatformService _platformService;
+        ICategoryService _categoryService;
 
-
-        public PlatformController(IPlatformService platformService)
+        public CategoryController(ICategoryService categoryService)
         {
-            _platformService = platformService;
+            _categoryService = categoryService;
         }
-
         [HttpGet("getall")]
+
         public IActionResult GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = _categoryService.GetAll();
 
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
@@ -32,29 +31,29 @@ namespace WebApi.Controllers
 
 
         [HttpPost("add")]
-        public IActionResult Add(Platform platform) 
+        public IActionResult Add(Category category)
         {
-            var result = _platformService.Add(platform);
-            if(result.Success)
+            var result = _categoryService.Add(category);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Platform platform)
+        public IActionResult Delete(Category category)
         {
-            var result=_platformService.Delete(platform);
-            if(result.Success)
+            var result = _categoryService.Delete(category);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result) ;
+            return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Platform platform)
-        { 
-            var result = _platformService.Update(platform);
+        public IActionResult Update(Category category)
+        {
+            var result = _categoryService.Update(category);
             if (result.Success)
             {
                 return Ok(result);
@@ -62,10 +61,10 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpPost("GetById")]
-        public IActionResult GetById(int platformId)
-        { 
-            var result = _platformService.GetById(platformId);
-            if(result.Success)
+        public IActionResult GetById(int categoryId)
+        {
+            var result = _categoryService.GetById(categoryId);
+            if (result.Success)
             { return Ok(result); }
             return BadRequest(result);
         }

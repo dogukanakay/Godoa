@@ -7,54 +7,49 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlatformController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        IPlatformService _platformService;
-
-
-        public PlatformController(IPlatformService platformService)
+        IProductService _productService;
+        public ProductController(IProductService productService)
         {
-            _platformService = platformService;
+            _productService = productService;
         }
-
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = _productService.GetAll();
 
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
 
         }
-
-
         [HttpPost("add")]
-        public IActionResult Add(Platform platform) 
+        public IActionResult Add(Product product)
         {
-            var result = _platformService.Add(platform);
-            if(result.Success)
+            var result = _productService.Add(product);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Platform platform)
+        public IActionResult Delete(Product product)
         {
-            var result=_platformService.Delete(platform);
-            if(result.Success)
+            var result = _productService.Delete(product);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result) ;
+            return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Platform platform)
-        { 
-            var result = _platformService.Update(platform);
+        public IActionResult Update(Product product)
+        {
+            var result = _productService.Update(product);
             if (result.Success)
             {
                 return Ok(result);
@@ -62,10 +57,10 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpPost("GetById")]
-        public IActionResult GetById(int platformId)
-        { 
-            var result = _platformService.GetById(platformId);
-            if(result.Success)
+        public IActionResult GetById(int productId)
+        {
+            var result = _productService.GetById(productId);
+            if (result.Success)
             { return Ok(result); }
             return BadRequest(result);
         }

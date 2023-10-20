@@ -7,22 +7,19 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlatformController : ControllerBase
+    public class GameKeyController : ControllerBase
     {
-        IPlatformService _platformService;
-
-
-        public PlatformController(IPlatformService platformService)
+        IGameKeyService _gameKeyService;
+        public GameKeyController(IGameKeyService gameKeyService)
         {
-            _platformService = platformService;
+            _gameKeyService = gameKeyService;
         }
-
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = _gameKeyService.GetAll();
 
-            if(result.Success)
+            if (result.Success)
             {
                 return Ok(result);
             }
@@ -30,31 +27,30 @@ namespace WebApi.Controllers
 
         }
 
-
         [HttpPost("add")]
-        public IActionResult Add(Platform platform) 
+        public IActionResult Add(GameKey gameKey)
         {
-            var result = _platformService.Add(platform);
-            if(result.Success)
+            var result = _gameKeyService.Add(gameKey);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Platform platform)
+        public IActionResult Delete(GameKey gameKey)
         {
-            var result=_platformService.Delete(platform);
-            if(result.Success)
+            var result = _gameKeyService.Delete(gameKey);
+            if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest(result) ;
+            return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Platform platform)
-        { 
-            var result = _platformService.Update(platform);
+        public IActionResult Update(GameKey gameKey)
+        {
+            var result = _gameKeyService.Update(gameKey);
             if (result.Success)
             {
                 return Ok(result);
@@ -62,10 +58,10 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpPost("GetById")]
-        public IActionResult GetById(int platformId)
-        { 
-            var result = _platformService.GetById(platformId);
-            if(result.Success)
+        public IActionResult GetById(int gameKeyId)
+        {
+            var result = _gameKeyService.GetById(gameKeyId);
+            if (result.Success)
             { return Ok(result); }
             return BadRequest(result);
         }
