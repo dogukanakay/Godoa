@@ -13,6 +13,10 @@ namespace Business.Concrete
     public class EmployeeManager:IEmployeeService
     {
         IEmployeeDal _employeeDal;
+        public EmployeeManager(IEmployeeDal employeeDal)
+        {
+            _employeeDal = employeeDal;
+        }
         public IResult Add(Employee employee)
         {
             _employeeDal.Add(employee);

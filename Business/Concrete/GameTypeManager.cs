@@ -13,6 +13,10 @@ namespace Business.Concrete
     public class GameTypeManager:IGameTypeService
     {
         IGameTypeDal _gameTypeDal;
+        public GameTypeManager(IGameTypeDal gameTypeDal)
+        {
+            _gameTypeDal = gameTypeDal;
+        }
         public IResult Add(GameType gameType)
         {
             _gameTypeDal.Add(gameType);

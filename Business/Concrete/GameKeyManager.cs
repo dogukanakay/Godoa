@@ -13,6 +13,10 @@ namespace Business.Concrete
     public class GameKeyManager:IGameKeyService
     {
         IGameKeyDal _gameKeyDal;
+        public GameKeyManager(IGameKeyDal gameKeyDal)
+        {
+            _gameKeyDal = gameKeyDal;
+        }
         public IResult Add(GameKey gameKey)
         {
             _gameKeyDal.Add(gameKey);

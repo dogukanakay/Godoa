@@ -13,6 +13,10 @@ namespace Business.Concrete
     public class InGameCoinManager:IInGameCoinService
     {
         IInGameCoinDal _inGameCoinDal;
+        public InGameCoinManager(IInGameCoinDal inGameCoinDal)
+        {
+            _inGameCoinDal = inGameCoinDal;
+        }
         public IResult Add(InGameCoin inGameCoin)
         {
             _inGameCoinDal.Add(inGameCoin);
