@@ -56,7 +56,7 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetById")]
+        [HttpGet("getbyid")]
         public IActionResult GetById(int orderId)
         {
             var result = _orderService.GetById(orderId);

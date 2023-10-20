@@ -1,9 +1,7 @@
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Business.DependencyResolvers.Autofac;
-using Core.DependencyResolvers;
-using Core.Extensions;
-using Core.Utilities.IoC;
+﻿using Business.Abstract;
+using Business.Concrete;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 
 namespace WebApi
 {
@@ -12,23 +10,16 @@ namespace WebApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
             // Add services to the container.
-            builder.Services.AddDependecyResolvers(new ICoreModule[]
-            {
-                new CoreModule()
-            });
-            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-            builder.Host.ConfigureContainer<ContainerBuilder>(
-            builder => builder.RegisterModule(new BusinessModule()));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            //builder.Services.AddEndpointsApiExplorer();
-            //builder.Services.AddSwaggerGen();
-          
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-            //builder.Services.AddSingleton<IPlatformDal, EfPlatformDal>();
-            //builder.Services.AddSingleton<IPlatformService, PlatformManager>();
+            builder.Services.AddSingleton<IPlatformDal, EfPlatformDal>();
+            builder.Services.AddSingleton<IPlatformService, PlatformManager>();
 
 
 
@@ -50,7 +41,5 @@ namespace WebApi
 
             app.Run();
         }
-
-       
     }
 }

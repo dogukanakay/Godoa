@@ -58,7 +58,7 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("getbyid")]
+        [HttpGet("getbyid")]
         public IActionResult GetById(int gameTypeId)
         {
             var result = _gameTypeService.GetById(gameTypeId);

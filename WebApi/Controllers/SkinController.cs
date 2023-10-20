@@ -42,7 +42,7 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpGet("update")]
+        [HttpPost("update")]
 
         public IActionResult Update(Skin skin)
         {
@@ -56,7 +56,7 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpGet("getall")]
+        [HttpGet("delete")]
 
         public IActionResult Delete(Skin skin)
         {
@@ -69,7 +69,7 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getall")]
+        [HttpGet("getbyid")]
 
         public IActionResult GetById(int skinId)
         {
