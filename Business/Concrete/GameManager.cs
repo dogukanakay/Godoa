@@ -15,6 +15,10 @@ namespace Business.Concrete
     public class GameManager:IGameService
     {
         IGameDal _gameDal;
+        public GameManager(IGameDal gameDal)
+        {
+            _gameDal = gameDal;
+        }
         public IResult Add(Game game)
         {
             _gameDal.Add(game);

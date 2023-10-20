@@ -13,6 +13,10 @@ namespace Business.Concrete
     public class CoinTypeManager : ICoinTypeService
     {
         ICoinTypeDal _coinTypeDal;
+        public CoinTypeManager(ICoinTypeDal coinTypeDal)
+        {
+            _coinTypeDal = coinTypeDal;
+        }
         public IResult Add(CoinType coinType)
         {
             _coinTypeDal.Add(coinType);

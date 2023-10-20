@@ -15,7 +15,7 @@ namespace Entities.DTOs
         public string CategoryName { get; set; }
         public string PlatformName { get; set; }
         public string TypeName { get; set; }
-        public string? ImagePath { get; set; }
-        public string? Description { get; set; }
+        public string ImagePath { get; set; }
+        public string Description { get; set; }
     }
 }
