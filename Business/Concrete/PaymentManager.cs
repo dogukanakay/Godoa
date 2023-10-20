@@ -3,6 +3,7 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,10 @@ namespace Business.Concrete
         {
             _paymentDal.Update(payment);
             return new SuccessResult("Güncellendi");
+        }
+        public IDataResult<List<PaymentDetailDto>> GetPaymentDetails()
+        {
+            return new SuccessDataResult<List<PaymentDetailDto>>(_paymentDal.GetPaymentDetails(), "Payment detaylı bilgileri getirildi");
         }
     }
 }
