@@ -3,6 +3,7 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,11 @@ namespace Business.Concrete
         {
             _gameDal.Update(game);
             return new SuccessResult("Güncellendi");
+        }
+
+        public IDataResult<List<GameDetailDto>> GetGameDetails()
+        {
+            return new SuccessDataResult<List<GameDetailDto>>(_gameDal.GetGameDetails(), "Oyunun detaylı bilgileri getirildi");
         }
     }
 }
