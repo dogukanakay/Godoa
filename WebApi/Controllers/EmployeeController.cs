@@ -56,12 +56,14 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetById")]
+        [HttpPost("getbyid")]
         public IActionResult GetById(int emlpoyeeId)
         {
             var result = _employeeService.GetById(emlpoyeeId);
             if (result.Success)
-            { return Ok(result); }
+            {
+                return Ok(result);
+            }
             return BadRequest(result);
         }
     }

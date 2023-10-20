@@ -61,7 +61,9 @@ namespace WebApi.Controllers
         {
             var result = _orderService.GetById(orderId);
             if (result.Success)
-            { return Ok(result); }
+            {
+                return Ok(result); 
+            }
             return BadRequest(result);
         }
     }

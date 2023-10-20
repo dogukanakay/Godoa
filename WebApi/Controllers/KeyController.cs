@@ -57,12 +57,14 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetById")]
+        [HttpPost("getbyid")]
         public IActionResult GetById(int keysId)
         {
             var result = _keyService.GetById(keysId);
             if (result.Success)
-            { return Ok(result); }
+            {
+                return Ok(result);
+            }
             return BadRequest(result);
         }
 

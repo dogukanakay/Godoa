@@ -61,12 +61,14 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetById")]
+        [HttpPost("getbyid")]
         public IActionResult GetById(int platformId)
         { 
             var result = _platformService.GetById(platformId);
             if(result.Success)
-            { return Ok(result); }
+            {
+                return Ok(result);
+            }
             return BadRequest(result);
         }
     }

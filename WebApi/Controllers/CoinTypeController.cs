@@ -58,12 +58,14 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetById")]
+        [HttpPost("getbyid")]
         public IActionResult GetById(int coinTypeId)
         {
             var result = _coinTypeService.GetById(coinTypeId);
             if (result.Success)
-            { return Ok(result); }
+            { 
+                return Ok(result); 
+            }
             return BadRequest(result);
         }
 1    }
