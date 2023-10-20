@@ -15,6 +15,7 @@ namespace WebApi.Controllers
         {
             _categoryService = categoryService;
         }
+
         [HttpGet("getall")]
 
         public IActionResult GetAll()
@@ -60,12 +61,14 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetById")]
+        [HttpGet("getbyid")]
         public IActionResult GetById(int categoryId)
         {
             var result = _categoryService.GetById(categoryId);
             if (result.Success)
-            { return Ok(result); }
+            {
+                return Ok(result); 
+            }
             return BadRequest(result);
         }
     }

@@ -39,7 +39,7 @@ namespace WebApi.Controllers
         [HttpPost("delete")]
         public IActionResult Delete(Employee employee)
         {
-            var result = _employeeService.Delete(employee));
+            var result = _employeeService.Delete(employee);
             if (result.Success)
             {
                 return Ok(result);
@@ -56,12 +56,14 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetById")]
+        [HttpGet("getbyid")]
         public IActionResult GetById(int emlpoyeeId)
         {
             var result = _employeeService.GetById(emlpoyeeId);
             if (result.Success)
-            { return Ok(result); }
+            {
+                return Ok(result);
+            }
             return BadRequest(result);
         }
     }

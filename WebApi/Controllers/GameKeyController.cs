@@ -57,12 +57,14 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetById")]
+        [HttpGet("getbyid")]
         public IActionResult GetById(int gameKeyId)
         {
             var result = _gameKeyService.GetById(gameKeyId);
             if (result.Success)
-            { return Ok(result); }
+            {
+                return Ok(result);
+            }
             return BadRequest(result);
         }
     }
