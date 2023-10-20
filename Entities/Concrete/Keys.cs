@@ -8,7 +8,7 @@ namespace Entities.Concrete
         [Key]
         public int KeyId { get; set; }
         public int GameId { get; set; }
-        public int KeyDetail { get; set; }
-        public int EndDate { get; set; }
+        public string KeyDetail { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

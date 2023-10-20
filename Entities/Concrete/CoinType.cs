@@ -12,7 +12,7 @@ namespace Entities.Concrete
     {
         [Key]
         public int CoinTypeId { get; set; }
-        public int CointTypeName { get; set; }
+        public string CointTypeName { get; set; }
         public int GameId { get; set; }
     }
 }
