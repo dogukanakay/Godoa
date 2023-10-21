@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace Business.Abstract
             IResult Update(InGameCoin ınGameCoin);
 
             IDataResult<List<InGameCoin>> GetAll(); 
-            IDataResult<InGameCoin> GetById(int inGameCoinId); 
+            IDataResult<InGameCoin> GetById(int inGameCoinId);
+            IDataResult<List<InGameCoinDetailDto>> GetInGameCoinDetils();
         
     }
 }

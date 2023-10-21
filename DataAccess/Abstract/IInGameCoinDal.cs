@@ -1,6 +1,7 @@
 ﻿using Core.DataAccess;
 using Core.Entities.Abstracts;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace DataAccess.Abstract
 {
     public interface IInGameCoinDal : IEntityRepository<InGameCoin>
     {
+        List<InGameCoinDetailDto> GetInGameCoinDetails();
     }
 }

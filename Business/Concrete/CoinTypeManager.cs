@@ -2,6 +2,7 @@
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,11 @@ namespace Business.Concrete
         {
             _coinTypeDal.Update(coinType);
             return new SuccessResult("Güncellendi");
+        }
+
+        public IDataResult<List<CoinTypeDetailDto>> GetCoinTypeDetails()
+        {
+            return new SuccessDataResult<List<CoinTypeDetailDto>>(_coinTypeDal.GetCoinTypeDetails(), "CoinType detaylı bilgileri getirildi");
         }
     }
 }

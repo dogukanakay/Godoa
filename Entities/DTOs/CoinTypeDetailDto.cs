@@ -1,18 +1,16 @@
-﻿using Core.Entities.Abstracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Concrete
+namespace Entities.DTOs
 {
-    public class CoinType : IEntity
+     public class CoinTypeDetailDto
     {
-        [Key]
         public int CoinTypeId { get; set; }
         public string CoinTypeName { get; set; }
-        public int GameId { get; set; }
+        public string GameName { get; set; }
+
     }
 }

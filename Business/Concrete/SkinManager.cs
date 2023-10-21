@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +47,10 @@ namespace Business.Concrete
         {
             _skinDal.Update(skin);
             return new SuccessResult("Güncellendi");
+        }
+        public IDataResult<List<SkinDetailDto>> GetSkinDetails() 
+        {
+            return new SuccessDataResult<List<SkinDetailDto>>(_skinDal.GetSkinDetails(), "Skin detaylı bilgileri getirildi");
         }
     }
 }

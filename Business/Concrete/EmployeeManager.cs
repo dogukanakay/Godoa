@@ -2,6 +2,7 @@
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,11 @@ namespace Business.Concrete
         {
             _employeeDal.Update(employee);
             return new SuccessResult("Güncellendi");
+        }
+
+        public IDataResult<List<EmployeeDetailDto>> GetEmployeeDetails()
+        {
+            return new SuccessDataResult<List<EmployeeDetailDto>>(_employeeDal.GetEmployeeDetails(),"Employee detaylı bilgileri getirildi.");
         }
     }
 }

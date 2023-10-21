@@ -27,7 +27,7 @@ namespace DataAccess.Concrete.EntityFramework
                        ProductName = g.ProductName,
                        SkinName=c.SkinName,
                        GameKeyDetail=da.KeyDetail,
-                       InGameCoinName=na.CointTypeName
+                       InGameCoinName=na.CoinTypeName
 
                    };
         }

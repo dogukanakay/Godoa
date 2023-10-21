@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +46,10 @@ namespace Business.Concrete
         {
             _inGameCoinDal.Update(inGameCoin);
             return new SuccessResult("Güncellendi");
+        }
+        public IDataResult<List<InGameCoinDetailDto>> GetInGameCoinDetils()
+        {
+            return new SuccessDataResult<List<InGameCoinDetailDto>>(_inGameCoinDal.GetInGameCoinDetails(), "GameKey detaylı bilgileri getirildi.");
         }
     }
 }

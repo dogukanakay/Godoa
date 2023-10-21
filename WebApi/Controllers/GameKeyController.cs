@@ -67,5 +67,15 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getalldetails")]
+        public IActionResult GetAllDetials()
+        {
+            var result = _gameKeyService.GetGameKeyDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

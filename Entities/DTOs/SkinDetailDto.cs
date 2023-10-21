@@ -1,20 +1,17 @@
-﻿using Core.Entities.Abstracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Concrete
+namespace Entities.DTOs
 {
-    public class Skin : IEntity
+    public class SkinDetailDto
     {
-        [Key]
         public int SkinId { get; set; }
         public string SkinName { get; set; }
-        public int SellerId { get; set; }
-        public int GameId { get; set; }
+        public string SellerName { get; set; }
+        public string GameName { get; set; }
         public double Price { get; set; }
         public string ImagePath { get; set; }
         public string Description { get; set; }
