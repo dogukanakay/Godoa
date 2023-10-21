@@ -15,17 +15,17 @@ namespace DataAccess.Concrete.EntityFramework
     {
         private IQueryable<EmployeeDetailDto> GetEmployeeDetailQuery(GodoaContext context)
         {
-            return from g in context.Employees
-                   join or in context.Users on g.UserId equals or.UserId
+            return from e in context.Employees
+                   join u in context.Users on e.UserId equals u.UserId
 
                    select new EmployeeDetailDto
                    {
-                       EmployeeId = g.EmployeeId,
-                       UserName=or.UserName,
-                       NationalityIdentity=g.NationalityIdentity,
-                       Address=g.Adress,
-                       Status=g.Status,
-                       HireDate=g.HireDate
+                       EmployeeId = e.EmployeeId,
+                       UserName=u.UserName,
+                       NationalityIdentity=e.NationalityIdentity,
+                       Address=e.Adress,
+                       Status=e.Status,
+                       HireDate=e.HireDate
                       
                    };
         }

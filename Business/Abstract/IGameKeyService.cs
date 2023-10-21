@@ -17,6 +17,6 @@ namespace Business.Abstract
 
         IDataResult<List<GameKey>> GetAll();
         IDataResult<GameKey> GetById(int gameKeyId);
-        IDataResult<List<GameKeyDetialDto>> GetGameKeyDetails(); 
+        IDataResult<List<GameKeyDetailDto>> GetGameKeyDetails(); 
     }
 }

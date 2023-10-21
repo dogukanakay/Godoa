@@ -13,25 +13,28 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfProductDal : EfEntityRepositoryBase<Product, GodoaContext>, IProductDal
     {
+        
+
         private IQueryable<ProductDetailDto> GetProductDetailQuery(GodoaContext context) 
         {
-            return from g in context.Products
-                   join c in context.Skins on g.SkinId equals c.SkinId
-                   join u in context.GameKeys on g.GameKeyId equals u.GameKeyId
-                   join da in context.Keys on u.KeyId equals da.KeyId
-                   join or in context.inGameCoins on g.InGameCoinId equals or.InGameCoinId
-                   join na in context.CoinTypes on or.CoinTypeId equals na.CoinTypeId
+            return from p in context.Products
+                   join s in context.Skins on p.SkinId equals s.SkinId
+                   join gk in context.GameKeys on p.GameKeyId equals gk.GameKeyId
+                   join k in context.Keys on gk.KeyId equals k.KeyId
+                   join i in context.inGameCoins on p.InGameCoinId equals i.InGameCoinId
+                   join ct in context.CoinTypes on i.CoinTypeId equals ct.CoinTypeId
                    select new ProductDetailDto
                    {
-                       ProductId = g.ProductId,
-                       ProductName = g.ProductName,
-                       SkinName=c.SkinName,
-                       GameKeyDetail=da.KeyDetail,
-                       InGameCoinName=na.CoinTypeName
+                       ProductId = p.ProductId,
+                       ProductName = p.ProductName,
+                       SkinName=s.SkinName,
+                       GameKeyDetail=k.KeyDetail,
+                       InGameCoinName=ct.CoinTypeName
 
                    };
         }
-        List<ProductDetailDto> IProductDal.GetProductDetails()
+
+        public List<ProductDetailDto> GetProductDetails()
         {
             using (GodoaContext context = new GodoaContext())
             {
@@ -39,5 +42,6 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+
     }
 }

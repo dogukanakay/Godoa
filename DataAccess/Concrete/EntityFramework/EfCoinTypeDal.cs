@@ -15,13 +15,13 @@ namespace DataAccess.Concrete.EntityFramework
     {
         private IQueryable<CoinTypeDetailDto> GetCoinTypeDetailQuery(GodoaContext context)
         {
-            return from g in context.CoinTypes
-                   join r in context.Games on g.GameId equals r.GameId
+            return from c in context.CoinTypes
+                   join g in context.Games on c.GameId equals g.GameId
                    select new CoinTypeDetailDto
                    {
-                       CoinTypeId = g.CoinTypeId,
-                       CoinTypeName=g.CoinTypeName,
-                       GameName=r.GameName
+                       CoinTypeId = c.CoinTypeId,
+                       CoinTypeName=c.CoinTypeName,
+                       GameName=g.GameName
 
                    };
 

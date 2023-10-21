@@ -48,9 +48,9 @@ namespace Business.Concrete
             return new SuccessResult("Güncellendi");
         }
 
-        public IDataResult<List<GameKeyDetialDto>> GetGameKeyDetails()
+        public IDataResult<List<GameKeyDetailDto>> GetGameKeyDetails()
         {
-            return new SuccessDataResult<List<GameKeyDetialDto>>(_gameKeyDal.GetGameKeyDetails(), "GameKey detaylı bilgileri getirildi.");
+            return new SuccessDataResult<List<GameKeyDetailDto>>(_gameKeyDal.GetGameKeyDetails(), "GameKey detaylı bilgileri getirildi.");
         }
     }
 }
