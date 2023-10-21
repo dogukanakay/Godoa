@@ -10,6 +10,7 @@ namespace Entities.Concrete
 {
     public class Platform : IEntity
     {
+         
         [Key]
         public int PlatformId { get; set; }
         public string PlatformName { get; set; }
