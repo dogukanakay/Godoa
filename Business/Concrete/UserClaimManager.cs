@@ -2,6 +2,8 @@
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,5 +48,11 @@ namespace Business.Concrete
             _userClaimDal.Update(userClaim);
             return new SuccessResult();
         }
+        public IDataResult<List<UserClaimDetailDto>> GetUserClaimDetails()
+        {
+            return new SuccessDataResult<List<UserClaimDetailDto>>(_userClaimDal.GetUserClaimDetails(), "UserClaim detaylı bilgileri getirildi.");
+        }
+
+       
     }
 }
