@@ -13,32 +13,36 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfSkinDal : EfEntityRepositoryBase<Skin, GodoaContext>, ISkinDal
     {
+        
+
         private IQueryable <SkinDetailDto> GetSkinDetailQuery(GodoaContext context)
         {
-            return from g in context.Skins
-                   join r in context.Sellers on g.SellerId equals r.SellerId
-                   join or in context.Users on r.UserID equals or.UserId
-                   join po in context.Games on g.GameId equals po.GameId
+            return from s in context.Skins
+                   join se in context.Sellers on s.SellerId equals se.SellerId
+                   join u in context.Users on se.UserID equals u.UserId
+                   join g in context.Games on s.GameId equals g.GameId
                    select new SkinDetailDto
                    {
-                       SkinId=g.SkinId,
-                       SkinName=g.SkinName,
-                       SellerName=or.UserName,
-                       GameName=po.GameName,
-                       Price=g.Price,
-                       ImagePath=g.ImagePath,
-                       Description=g.Description,
-                       Statu=g.Statu
+                       SkinId=s.SkinId,
+                       SkinName=s.SkinName,
+                       SellerName=u.UserName,
+                       GameName=g.GameName,
+                       Price=s.Price,
+                       ImagePath=s.ImagePath,
+                       Description=s.Description,
+                       Statu=s.Statu
                    };
         }
-        List<SkinDetailDto> ISkinDal.GetSkinDetails()
+
+        public List<SkinDetailDto> GetSkinDetails()
         {
-            using(GodoaContext context=new GodoaContext())
+            using (GodoaContext context = new GodoaContext())
             {
-                var result=GetSkinDetailQuery(context).ToList();
+                var result = GetSkinDetailQuery(context).ToList();
                 return result.ToList();
 
             }
         }
+
     }
 }

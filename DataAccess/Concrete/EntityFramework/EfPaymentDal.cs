@@ -13,21 +13,23 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfPaymentDal : EfEntityRepositoryBase<Payment, GodoaContext>, IPaymentDal
     {
+       
+
         private IQueryable<PaymentDetailDto> GetPaymentDetailQuery(GodoaContext context)
         {
-            return from g in context.Payments
-                   join c in context.Orders on g.OrderId equals c.OrderId
-                   join v in context.Users on g.UserId equals v.UserId
+            return from p in context.Payments
+                   join o in context.Orders on p.OrderId equals o.OrderId
+                   join u in context.Users on p.UserId equals u.UserId
                    select new PaymentDetailDto
                    {
-                       PaymentId = g.PaymentId,
-                       OrderId=c.OrderId,
-                       UserName=v.UserName,
-                       PaymentDate=g.PaymentDate,
-                       Status=g.Status
+                       PaymentId = p.PaymentId,
+                       OrderId=o.OrderId,
+                       UserName=u.UserName,
+                       PaymentDate=p.PaymentDate,
+                       Status=p.Status
                    };
         }
-        List<PaymentDetailDto> IPaymentDal.GetPaymentDetails()
+        public List<PaymentDetailDto> GetPaymentDetails()
         {
             using (GodoaContext context = new GodoaContext())
             {
@@ -35,5 +37,6 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+
     }
 }

@@ -11,33 +11,37 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfGameKeyDal : EfEntityRepositoryBase<GameKey, GodoaContext>, IGameKeyDal
+    public class EfGameKeyDal : EfEntityRepositoryBase<GameKey, GodoaContext>,IGameKeyDal
     {
-        private IQueryable<GameKeyDetialDto> GetGameKeyDetailQuery(GodoaContext context)
-        {
-            return from g in context.GameKeys 
-                   join or in context.Games on g.GameId equals or.GameId
-                   join ot in context.Keys on g.KeyId equals ot.KeyId
+       
 
-                   select new GameKeyDetialDto
+        private IQueryable<GameKeyDetailDto> GetGameKeyDetailQuery(GodoaContext context)
+        {
+            return from gk in context.GameKeys 
+                   join g in context.Games on gk.GameId equals g.GameId
+                   join k in context.Keys on gk.KeyId equals k.KeyId
+
+                   select new GameKeyDetailDto
                    {
-                       GameKeyId=g.GameKeyId,
-                       GameName = or.GameName,
-                       KeyDetail = ot.KeyDetail,
-                       Stock = g.Stock,
-                       Price= g.Price,
-                       Status= g.Status
+                       GameKeyId=gk.GameKeyId,
+                       GameName = g.GameName,
+                       KeyDetail = k.KeyDetail,
+                       Stock = gk.Stock,
+                       Price= gk.Price,
+                       Status= gk.Status
 
                    };
         }
-        List<GameKeyDetialDto> IGameKeyDal.GetGameKeyDetails()
+
+        public List<GameKeyDetailDto> GetGameKeyDetails()
         {
             using (GodoaContext context = new GodoaContext())
             {
-                var result = GetGameKeyDetailQuery(context).ToList();
+                var result = GetGameKeyDetailQuery(context);
                 return result.ToList();
 
             }
         }
+
     }
 }

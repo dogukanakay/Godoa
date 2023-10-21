@@ -15,18 +15,18 @@ namespace DataAccess.Concrete.EntityFramework
     {
         private IQueryable<OrderDetailDto> GetOrderDetailQuery(GodoaContext context)
         {
-            return from g in context.Orders
-                   join c in context.Products on g.ProductId equals c.ProductId
-                   join t in context.Users on g.UserId equals t.UserId
+            return from o in context.Orders
+                   join p in context.Products on o.ProductId equals p.ProductId
+                   join u in context.Users on o.UserId equals u.UserId
                    select new OrderDetailDto
                    {
-                       OrderId = g.OrderId,
-                       ProductName = c.ProductName,
-                       UserName = t.UserName,
-                       Amount = g.Amount,
-                       TotalPrice = g.TotalPrice,
-                       TradeUrl = g.TradeUrl,
-                       IsConfirmed = g.IsConfirmed
+                       OrderId = o.OrderId,
+                       ProductName = p.ProductName,
+                       UserName = u.UserName,
+                       Amount = o.Amount,
+                       TotalPrice = o.TotalPrice,
+                       TradeUrl = o.TradeUrl,
+                       IsConfirmed = o.IsConfirmed
 
 
                    };

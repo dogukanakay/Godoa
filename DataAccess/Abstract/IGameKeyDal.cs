@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IGameKeyDal:IEntityRepository<GameKey>
+    public interface IGameKeyDal : IEntityRepository<GameKey>
     {
-        List<GameKeyDetialDto> GetGameKeyDetails();
+        List<GameKeyDetailDto> GetGameKeyDetails();
     } 
 }
