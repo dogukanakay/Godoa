@@ -14,35 +14,35 @@ namespace Business.Concrete
 {
     public class ClaimManager : IClaimService
     {
-        IClaimDal _claimDal;
-        public ClaimManager(IClaimDal claimDal)
+        IOperationClaimDal _claimDal;
+        public ClaimManager(IOperationClaimDal claimDal)
         {
             _claimDal = claimDal;
         }
 
-        public IResult Add(Claim claim)
+        public IResult Add(OperationClaim claim)
         {
             _claimDal.Add(claim);
             return new SuccessResult("Eklendi");
         }
 
-        public IResult Delete(Claim claim)
+        public IResult Delete(OperationClaim claim)
         {
             _claimDal.Delete(claim);
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Claim> GetById(int claimId)
+        public IDataResult<OperationClaim> GetById(int claimId)
         {
-            return new SuccessDataResult<Claim>(_claimDal.Get(c=>c.ClaimId == claimId ));
+            return new SuccessDataResult<OperationClaim>(_claimDal.Get(c=>c.ClaimId == claimId ));
         }
 
-        public IDataResult<List<Claim>> GetAll()
+        public IDataResult<List<OperationClaim>> GetAll()
         {
-            return new SuccessDataResult<List<Claim>>(_claimDal.GetAll(), "Veriler Getirildi");
+            return new SuccessDataResult<List<OperationClaim>>(_claimDal.GetAll(), "Veriler Getirildi");
         }
 
-        public IResult Update(Claim claim)
+        public IResult Update(OperationClaim claim)
         {
             _claimDal.Update(claim);
             return new SuccessResult("Güncellendi");

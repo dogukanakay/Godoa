@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfUserClaimDal : EfEntityRepositoryBase<UserClaim, GodoaContext>, IUserClaimDal
+    public class EfUserClaimDal : EfEntityRepositoryBase<UserOperationClaim, GodoaContext>, IUserOperationClaimDal
     {
         private IQueryable<UserClaimDetailDto> GetUserClaimDetailQuery(GodoaContext context)
         {
-            return from u in context.UserClaims
+            return from u in context.UserOperationClaims
                    join us in context.Users on u.UserId equals us.UserId
-                   join cl in context.Claims on u.ClaimId equals cl.ClaimId
+                   join cl in context.OperationClaims on u.ClaimId equals cl.ClaimId
                    select new UserClaimDetailDto
                    {
                        UserClaimId = u.UserId,

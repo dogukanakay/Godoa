@@ -8,7 +8,7 @@ using Core.Entities.Concrete;
 using Entities.Concrete;
 namespace DataAccess.Abstract
 {
-    public interface IClaimDal: IEntityRepository<Claim>
+    public interface IOperationClaimDal: IEntityRepository<OperationClaim>
     {
     }
 }

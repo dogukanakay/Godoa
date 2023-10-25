@@ -12,12 +12,12 @@ namespace Business.Abstract
     public interface IClaimService
     {
 
-        IResult Add(Claim claim);
-        IResult Delete(Claim claim);
-        IResult Update(Claim claim);
+        IResult Add(OperationClaim claim);
+        IResult Delete(OperationClaim claim);
+        IResult Update(OperationClaim claim);
 
-        IDataResult<List<Claim>> GetAll();
-        IDataResult<Claim> GetById(int claimId);
+        IDataResult<List<OperationClaim>> GetAll();
+        IDataResult<OperationClaim> GetById(int claimId);
 
 
     }

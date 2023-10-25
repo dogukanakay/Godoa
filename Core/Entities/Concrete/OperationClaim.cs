@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Core.Entities.Concrete
 {
-    public class UserClaim:IEntity
+    public class OperationClaim:IEntity
     {
         [Key]
-        public int UserClaimId { get; set; }
-        public int UserId { get; set; }
         public int ClaimId { get; set; }
+        public string ClaimName { get; set; }
+
     }
 }
