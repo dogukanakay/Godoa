@@ -13,6 +13,8 @@ namespace Core.Extensions.Claims
         {
             claims.Add(new Claim(ClaimTypes.Email, email));
         }
+       
+    
 
         public static void AddName(this ICollection<Claim> claims, string name)
         {
