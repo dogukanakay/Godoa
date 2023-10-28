@@ -13,10 +13,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.12" />
+    <PackageReference Include="NRedisStack" Version="0.10.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Aspects\" />
+    <Folder Include="Aspects\RedisCache\" />
   </ItemGroup>
 
 </Project>
