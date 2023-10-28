@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IUserClaimDal:IEntityRepository<UserClaim>
+    public interface IUserOperationClaimDal:IEntityRepository<UserOperationClaim>
     {
         List<UserClaimDetailDto> GetUserClaimDetails();
     }

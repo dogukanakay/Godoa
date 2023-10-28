@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfClaimDal : EfEntityRepositoryBase<Claim, GodoaContext>, IClaimDal
+    public class EfClaimDal : EfEntityRepositoryBase<OperationClaim, GodoaContext>, IOperationClaimDal
     {
     }
 }
