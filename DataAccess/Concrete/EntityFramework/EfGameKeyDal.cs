@@ -19,7 +19,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             return from gk in context.GameKeys 
                    join g in context.Games on gk.GameId equals g.GameId
-                   join k in context.Keys on gk.KeyId equals k.KeyId
+                   join k in context.Keys on gk.GameId equals k.GameId
 
                    select new GameKeyDetailDto
                    {

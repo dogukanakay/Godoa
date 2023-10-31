@@ -20,7 +20,7 @@ namespace DataAccess.Concrete.EntityFramework
             return from p in context.Products
                    join s in context.Skins on p.SkinId equals s.SkinId
                    join gk in context.GameKeys on p.GameKeyId equals gk.GameKeyId
-                   join k in context.Keys on gk.KeyId equals k.KeyId
+                   join k in context.Keys on gk.GameId equals k.GameId
                    join i in context.inGameCoins on p.InGameCoinId equals i.InGameCoinId
                    join ct in context.CoinTypes on i.CoinTypeId equals ct.CoinTypeId
                    select new ProductDetailDto
