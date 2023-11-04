@@ -33,14 +33,14 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Skin> GetById(int skinId)
+        public async Task<IDataResult<Skin>> GetById(int skinId)
         {
-            return new SuccessDataResult<Skin>(_skinDal.Get(s=>s.SkinId==skinId),skinId+" idli Skin Getirildi");
+            return new SuccessDataResult<Skin>(await _skinDal.Get(s=>s.SkinId==skinId),skinId+" idli Skin Getirildi");
         }
 
-        public IDataResult<List<Skin>> GetAll()
+        public async Task<IDataResult<List<Skin>>> GetAll()
         {
-            return new SuccessDataResult<List<Skin>>(_skinDal.GetAll(),"Veriler Getirildi");
+            return new SuccessDataResult<List<Skin>>(await _skinDal.GetAll(),"Veriler Getirildi");
         }
 
         public IResult Update(Skin skin)
@@ -48,9 +48,9 @@ namespace Business.Concrete
             _skinDal.Update(skin);
             return new SuccessResult("Güncellendi");
         }
-        public IDataResult<List<SkinDetailDto>> GetSkinDetails() 
+        public async Task<IDataResult<List<SkinDetailDto>>> GetSkinDetails() 
         {
-            return new SuccessDataResult<List<SkinDetailDto>>(_skinDal.GetSkinDetails(), "Skin detaylı bilgileri getirildi");
+            return new SuccessDataResult<List<SkinDetailDto>>(await _skinDal.GetSkinDetails(), "Skin detaylı bilgileri getirildi");
         }
     }
 }

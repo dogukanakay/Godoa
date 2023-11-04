@@ -14,7 +14,7 @@ namespace Business.Abstract
         IResult Delete(GameType gameType);
         IResult Update(GameType gameType);
 
-        IDataResult<List<GameType>> GetAll();
-        IDataResult<GameType> GetById(int gameTypeId);
+        Task<IDataResult<List<GameType>>> GetAll();
+        Task<IDataResult<GameType>> GetById(int gameTypeId);
     }
 }

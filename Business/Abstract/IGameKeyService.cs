@@ -15,8 +15,8 @@ namespace Business.Abstract
         IResult Delete(GameKey gameKey);
         IResult Update(GameKey gameKey);
 
-        IDataResult<List<GameKey>> GetAll();
-        IDataResult<GameKey> GetById(int gameKeyId);
-        IDataResult<List<GameKeyDetailDto>> GetGameKeyDetails(); 
+        Task<IDataResult<List<GameKey>>> GetAll();
+        Task<IDataResult<GameKey>> GetById(int gameKeyId);
+        Task<IDataResult<List<GameKeyDetailDto>>> GetGameKeyDetails(); 
     }
 }

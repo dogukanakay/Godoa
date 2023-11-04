@@ -30,15 +30,15 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<CoinType> GetById(int coinTypeId)
+        public async Task<IDataResult<CoinType>> GetById(int coinTypeId)
         {
-            return new SuccessDataResult<CoinType>(_coinTypeDal.Get(s => s.CoinTypeId== coinTypeId));
+            return new SuccessDataResult<CoinType>(await _coinTypeDal.Get(ct => ct.CoinTypeId== coinTypeId));
 
         }
 
-        public IDataResult<List<CoinType>> GetAll()
+        public async Task<IDataResult<List<CoinType>>> GetAll()
         {
-            return new SuccessDataResult<List<CoinType>>(_coinTypeDal.GetAll(), "Verileri Getirildi");
+            return new SuccessDataResult<List<CoinType>>(await _coinTypeDal.GetAll(), "Verileri Getirildi");
         }
 
         public IResult Update(CoinType coinType)
@@ -47,9 +47,9 @@ namespace Business.Concrete
             return new SuccessResult("Güncellendi");
         }
 
-        public IDataResult<List<CoinTypeDetailDto>> GetCoinTypeDetails()
+        public async Task<IDataResult<List<CoinTypeDetailDto>>> GetCoinTypeDetails()
         {
-            return new SuccessDataResult<List<CoinTypeDetailDto>>(_coinTypeDal.GetCoinTypeDetails(), "CoinType detaylı bilgileri getirildi");
+            return new SuccessDataResult<List<CoinTypeDetailDto>>(await _coinTypeDal.GetCoinTypeDetails(), "CoinType detaylı bilgileri getirildi");
         }
     }
 }

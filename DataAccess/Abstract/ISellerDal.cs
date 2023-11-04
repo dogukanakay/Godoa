@@ -11,6 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface ISellerDal : IEntityRepository<Seller>
     {
-        List<SellerDetailDto> GetSellerDetails();
+        Task<List<SellerDetailDto>> GetSellerDetails();
     }
 }

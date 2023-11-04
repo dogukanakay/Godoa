@@ -15,9 +15,9 @@ namespace WebApi.Controllers
             _paymentService = paymentService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _paymentService.GetAll();
+            var result = await _paymentService.GetAll();
 
             if (result.Success)
             {
@@ -57,9 +57,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int paymentId)
+        public async Task<IActionResult> GetById(int paymentId)
         {
-            var result = _paymentService.GetById(paymentId);
+            var result = await _paymentService.GetById(paymentId);
             if (result.Success)
             {
                 return Ok(result); 
@@ -67,9 +67,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetallDetails()
+        public async Task<IActionResult> GetallDetails()
         {
-            var result = _paymentService.GetPaymentDetails();
+            var result = await _paymentService.GetPaymentDetails();
             if (result.Success)
             {
                 return Ok(result);

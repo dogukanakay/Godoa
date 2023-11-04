@@ -15,9 +15,9 @@ namespace WebApi.Controllers
             _orderService = orderService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _orderService.GetAll();
+            var result = await _orderService.GetAll();
 
             if (result.Success)
             {
@@ -57,9 +57,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int orderId)
+        public async Task<IActionResult> GetById(int orderId)
         {
-            var result = _orderService.GetById(orderId);
+            var result = await _orderService.GetById(orderId);
             if (result.Success)
             {
                 return Ok(result); 
@@ -67,9 +67,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetallDetails()
+        public async Task<IActionResult> GetallDetails()
         {
-            var result = _orderService.GetOrderDetails();
+            var result = await _orderService.GetOrderDetails();
             if (result.Success)
             {
                 return Ok(result);

@@ -15,8 +15,8 @@ namespace Business.Abstract
         IResult Delete(Payment payment);
         IResult Update(Payment payment);
 
-        IDataResult<List<Payment>> GetAll();
-        IDataResult<Payment> GetById(int paymentId);
-        IDataResult<List<PaymentDetailDto>> GetPaymentDetails(); 
+        Task<IDataResult<List<Payment>>> GetAll();
+        Task<IDataResult<Payment>> GetById(int paymentId);
+        Task<IDataResult<List<PaymentDetailDto>>> GetPaymentDetails(); 
     }
 }

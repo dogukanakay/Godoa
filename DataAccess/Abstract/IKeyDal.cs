@@ -13,6 +13,6 @@ namespace DataAccess.Abstract
 {
     public interface IKeyDal : IEntityRepository<Keys>
     {
-        List<KeyDetailDto> GetKeyDetails();
+        Task<List<KeyDetailDto>> GetKeyDetails();
     }
 }

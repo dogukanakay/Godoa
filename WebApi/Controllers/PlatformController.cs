@@ -18,9 +18,9 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _platformService.GetAll();
+            var result = await _platformService.GetAll();
 
             if(result.Success)
             {
@@ -62,9 +62,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int platformId)
+        public async Task<IActionResult> GetById(int platformId)
         { 
-            var result = _platformService.GetById(platformId);
+            var result = await _platformService.GetById(platformId);
             if(result.Success)
             {
                 return Ok(result);

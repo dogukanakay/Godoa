@@ -15,8 +15,8 @@ namespace Business.Abstract
         IResult Delete(Order order);
         IResult Update(Order order);
 
-        IDataResult<List<Order>> GetAll();
-        IDataResult<Order> GetById(int orderId);
-        IDataResult<List<OrderDetailDto>> GetOrderDetails();
+        Task<IDataResult<List<Order>>> GetAll();
+        Task<IDataResult<Order>> GetById(int orderId);
+        Task<IDataResult<List<OrderDetailDto>>> GetOrderDetails();
     }
 }

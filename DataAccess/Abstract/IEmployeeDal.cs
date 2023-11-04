@@ -11,6 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface IEmployeeDal: IEntityRepository<Employee>
     {
-        List<EmployeeDetailDto> GetEmployeeDetails(); 
+        Task<List<EmployeeDetailDto>> GetEmployeeDetails(); 
     }
 }

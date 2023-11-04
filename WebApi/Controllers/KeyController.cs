@@ -16,9 +16,9 @@ namespace WebApi.Controllers
             _keyService = keyService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _keyService.GetAll();
+            var result = await _keyService.GetAll();
 
             if (result.Success)
             {
@@ -58,9 +58,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int keysId)
+        public async Task<IActionResult> GetById(int keysId)
         {
-            var result = _keyService.GetById(keysId);
+            var result = await _keyService.GetById(keysId);
             if (result.Success)
             {
                 return Ok(result);
@@ -68,9 +68,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetAllDetials()
+        public async Task<IActionResult> GetAllDetials()
         {
-            var result = _keyService.GetKeyDetails();
+            var result = await _keyService.GetKeyDetails();
             if (result.Success)
             {
                 return Ok(result);

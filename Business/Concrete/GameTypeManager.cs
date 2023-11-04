@@ -29,15 +29,15 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<GameType> GetById(int gameTypeId)
+        public async Task<IDataResult<GameType>> GetById(int gameTypeId)
         {
-            return new SuccessDataResult<GameType>(_gameTypeDal.Get(s => s.GameTypeId == gameTypeId));
+            return new SuccessDataResult<GameType>(await _gameTypeDal.Get(s => s.GameTypeId == gameTypeId));
 
         }
 
-        public IDataResult<List<GameType>> GetAll()
+        public async Task<IDataResult<List<GameType>>> GetAll()
         {
-            return new SuccessDataResult<List<GameType>>(_gameTypeDal.GetAll(), "Verileri Getirildi");
+            return new SuccessDataResult<List<GameType>>(await _gameTypeDal.GetAll(), "Verileri Getirildi");
         }
 
         public IResult Update(GameType gameType)

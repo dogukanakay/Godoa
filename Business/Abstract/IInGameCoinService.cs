@@ -15,9 +15,9 @@ namespace Business.Abstract
             IResult Delete(InGameCoin ınGameCoin);
             IResult Update(InGameCoin ınGameCoin);
 
-            IDataResult<List<InGameCoin>> GetAll(); 
-            IDataResult<InGameCoin> GetById(int inGameCoinId);
-            IDataResult<List<InGameCoinDetailDto>> GetInGameCoinDetils();
+            Task<IDataResult<List<InGameCoin>>> GetAll(); 
+            Task<IDataResult<InGameCoin>> GetById(int inGameCoinId);
+            Task<IDataResult<List<InGameCoinDetailDto>>> GetInGameCoinDetils();
         
     }
 }

@@ -32,14 +32,14 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Payment> GetById(int paymentId)
+        public async Task<IDataResult<Payment>> GetById(int paymentId)
         {
-            return new SuccessDataResult<Payment>(_paymentDal.Get(p => p.PaymentId == paymentId));
+            return new SuccessDataResult<Payment>(await _paymentDal.Get(p => p.PaymentId == paymentId));
         }
 
-        public IDataResult<List<Payment>> GetAll()
+        public async Task<IDataResult<List<Payment>>> GetAll()
         {
-            return new SuccessDataResult<List<Payment>>(_paymentDal.GetAll(), "Veriler Getirildi");
+            return new SuccessDataResult<List<Payment>>(await _paymentDal.GetAll(), "Veriler Getirildi");
         }
 
         public IResult Update(Payment payment)
@@ -47,9 +47,9 @@ namespace Business.Concrete
             _paymentDal.Update(payment);
             return new SuccessResult("Güncellendi");
         }
-        public IDataResult<List<PaymentDetailDto>> GetPaymentDetails()
+        public async Task<IDataResult<List<PaymentDetailDto>>> GetPaymentDetails()
         {
-            return new SuccessDataResult<List<PaymentDetailDto>>(_paymentDal.GetPaymentDetails(), "Payment detaylı bilgileri getirildi");
+            return new SuccessDataResult<List<PaymentDetailDto>>(await _paymentDal.GetPaymentDetails(), "Payment detaylı bilgileri getirildi");
         }
     }
 }
