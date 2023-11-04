@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Context;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,12 @@ namespace DataAccess.Concrete.EntityFramework
                    };
 
         }
-        public List<CoinTypeDetailDto> GetCoinTypeDetails()
+        public async Task<List<CoinTypeDetailDto>> GetCoinTypeDetails()
         {
             using (GodoaContext context = new GodoaContext())
             {
-                var result = GetCoinTypeDetailQuery(context).ToList();
-                return result.ToList();
+                var result = GetCoinTypeDetailQuery(context);
+                return await result.ToListAsync();
             }
         }
     }

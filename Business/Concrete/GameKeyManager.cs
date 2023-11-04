@@ -31,15 +31,15 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<GameKey> GetById(int gameKeyId)
+        public async Task<IDataResult<GameKey>> GetById(int gameKeyId)
         {
-            return new SuccessDataResult<GameKey>(_gameKeyDal.Get(s => s.GameKeyId == gameKeyId));
+            return new SuccessDataResult<GameKey>(await _gameKeyDal.Get(s => s.GameKeyId == gameKeyId));
 
         }
 
-        public IDataResult<List<GameKey>> GetAll()
+        public async Task<IDataResult<List<GameKey>>> GetAll()
         {
-            return new SuccessDataResult<List<GameKey>>(_gameKeyDal.GetAll(), "Verileri Getirildi");
+            return new SuccessDataResult<List<GameKey>>(await _gameKeyDal.GetAll(), "Verileri Getirildi");
         }
 
         public IResult Update(GameKey gameKey)
@@ -48,9 +48,9 @@ namespace Business.Concrete
             return new SuccessResult("Güncellendi");
         }
 
-        public IDataResult<List<GameKeyDetailDto>> GetGameKeyDetails()
+        public async Task<IDataResult<List<GameKeyDetailDto>>> GetGameKeyDetails()
         {
-            return new SuccessDataResult<List<GameKeyDetailDto>>(_gameKeyDal.GetGameKeyDetails(), "GameKey detaylı bilgileri getirildi.");
+            return new SuccessDataResult<List<GameKeyDetailDto>>(await _gameKeyDal.GetGameKeyDetails(), "GameKey detaylı bilgileri getirildi.");
         }
     }
 }

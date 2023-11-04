@@ -11,6 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface IOrderDal : IEntityRepository<Order>
     {
-        List<OrderDetailDto> GetOrderDetails(); 
+        Task<List<OrderDetailDto>> GetOrderDetails(); 
     }
 }

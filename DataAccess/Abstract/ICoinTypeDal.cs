@@ -6,7 +6,7 @@ namespace DataAccess.Abstract
 {
     public interface ICoinTypeDal : IEntityRepository<CoinType>
     {
-        List<CoinTypeDetailDto> GetCoinTypeDetails();
+        Task<List<CoinTypeDetailDto>> GetCoinTypeDetails();
     }
 
 }

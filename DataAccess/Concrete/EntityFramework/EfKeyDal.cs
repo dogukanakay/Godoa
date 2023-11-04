@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Context;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -26,12 +27,12 @@ namespace DataAccess.Concrete.EntityFramework
                        EndDate=g.EndDate
                    };
         }
-        public List<KeyDetailDto> GetKeyDetails()
+        public async Task<List<KeyDetailDto>> GetKeyDetails()
         {
             using (GodoaContext context = new GodoaContext())
             {
-                var result = GetKeyDetailQuery(context).ToList();
-                return result.ToList();
+                var result = GetKeyDetailQuery(context);
+                return await result.ToListAsync();
             }
         }
     }

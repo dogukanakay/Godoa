@@ -4,6 +4,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Tokens;
+using DataAccess.Abstract;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -15,24 +16,27 @@ namespace Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        IUserDal _userDal;
         IUserService _userService;
         ITokenHelper _tokenHelper;
 
-        public AuthManager( IUserService userService, ITokenHelper tokenHelper)
+        public AuthManager( IUserDal userDal, ITokenHelper tokenHelper, IUserService userService)
         {
-            _userService = userService;
+            _userDal = userDal;
             _tokenHelper = tokenHelper;
+            _userService = userService;
+
         }
-        public IDataResult<AccessToken> CreateAccessToken(User user)
+        public async Task<IDataResult<AccessToken>> CreateAccessToken(User user)
         {
-            var claims = _userService.GetClaims(user).Data;
+            var claims = _userDal.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, "Token Üretildi");
         }
 
-        public IDataResult<User> Login(UserForLoginDto userForLoginDto)
+        public async Task<IDataResult<User>> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByEmail(userForLoginDto.Email).Data;
+            var userToCheck = await _userDal.Get(u=>u.Email == userForLoginDto.Email && u.Status);
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
@@ -76,9 +80,9 @@ namespace Business.Concrete
 
         }
 
-        public IResult UserExist(string email)
+        public async Task<IResult> UserExist(string email)
         {
-            if(_userService.GetByEmail(email).Data != null)
+            if (await _userDal.Get(u => u.Email == email) != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -30,15 +31,15 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Category> GetById(int categoryId)
+        public async Task<IDataResult<Category>> GetById(int categoryId)
         {
-            return new SuccessDataResult<Category>(_categoryDal.Get(s => s.CategoryId == categoryId));
+            return  new SuccessDataResult<Category>(await _categoryDal.Get(c => c.CategoryId == categoryId),Messages.ExampleSuccess);
         
         }
 
-        public IDataResult<List<Category>> GetAll()
+        public async Task<IDataResult<List<Category>>> GetAll()
         {
-            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(),"Verileri Getirildi");
+            return new SuccessDataResult<List<Category>>(await _categoryDal.GetAll(),"Verileri Getirildi");
         }
 
         public IResult Update(Category category)

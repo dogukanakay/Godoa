@@ -31,15 +31,15 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Game> GetById(int gameId)
+        public async Task<IDataResult<Game>> GetById(int gameId)
         {
-            return new SuccessDataResult<Game>(_gameDal.Get(s => s.GameId == gameId));
+            return new SuccessDataResult<Game>(await _gameDal.Get(s => s.GameId == gameId));
 
         }
 
-        public IDataResult<List<Game>> GetAll()
+        public async Task<IDataResult<List<Game>>> GetAll()
         {
-            return new SuccessDataResult<List<Game>>(_gameDal.GetAll(), "Verileri Getirildi");
+            return new SuccessDataResult<List<Game>>(await _gameDal.GetAll(), "Verileri Getirildi");
         }
 
         public IResult Update(Game game)
@@ -48,9 +48,9 @@ namespace Business.Concrete
             return new SuccessResult("Güncellendi");
         }
 
-        public IDataResult<List<GameDetailDto>> GetGameDetails()
+        public async Task<IDataResult<List<GameDetailDto>>> GetGameDetails()
         {
-            return new SuccessDataResult<List<GameDetailDto>>(_gameDal.GetGameDetails(), "Oyunun detaylı bilgileri getirildi");
+            return new SuccessDataResult<List<GameDetailDto>>(await _gameDal.GetGameDetails(), "Oyunun detaylı bilgileri getirildi");
         }
     }
 }

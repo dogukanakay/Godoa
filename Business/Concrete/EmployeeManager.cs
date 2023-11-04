@@ -30,15 +30,15 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Employee> GetById(int emloyeeId)
+        public async Task<IDataResult<Employee>> GetById(int emloyeeId)
         {
-            return new SuccessDataResult<Employee>(_employeeDal.Get(s => s.EmployeeId == emloyeeId));
+            return new SuccessDataResult<Employee>(await _employeeDal.Get(s => s.EmployeeId == emloyeeId));
 
         }
 
-        public IDataResult<List<Employee>> GetAll()
+        public async Task<IDataResult<List<Employee>>> GetAll()
         {
-            return new SuccessDataResult<List<Employee>>(_employeeDal.GetAll(), "Verileri Getirildi");
+            return new SuccessDataResult<List<Employee>>(await _employeeDal.GetAll(), "Verileri Getirildi");
         }
 
         public IResult Update(Employee employee)
@@ -47,9 +47,9 @@ namespace Business.Concrete
             return new SuccessResult("Güncellendi");
         }
 
-        public IDataResult<List<EmployeeDetailDto>> GetEmployeeDetails()
+        public async Task<IDataResult<List<EmployeeDetailDto>>> GetEmployeeDetails()
         {
-            return new SuccessDataResult<List<EmployeeDetailDto>>(_employeeDal.GetEmployeeDetails(),"Employee detaylı bilgileri getirildi.");
+            return new SuccessDataResult<List<EmployeeDetailDto>>(await _employeeDal.GetEmployeeDetails(),"Employee detaylı bilgileri getirildi.");
         }
     }
 }

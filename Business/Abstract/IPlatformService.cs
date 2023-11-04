@@ -14,7 +14,7 @@ namespace Business.Abstract
         IResult Delete(Platform platform);
         IResult Update(Platform platform);
 
-        IDataResult<List<Platform>> GetAll();
-        IDataResult<Platform> GetById(int platformId);
+        Task<IDataResult<List<Platform>>> GetAll();
+        Task<IDataResult<Platform>> GetById(int platformId);
     }
 }

@@ -11,6 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface ISkinDal: IEntityRepository<Skin>
     {
-        List<SkinDetailDto> GetSkinDetails();
+        Task<List<SkinDetailDto>> GetSkinDetails();
     }
 }

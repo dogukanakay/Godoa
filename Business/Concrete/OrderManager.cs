@@ -32,14 +32,14 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Order> GetById(int orderId)
+        public async Task<IDataResult<Order>> GetById(int orderId)
         {
-            return new SuccessDataResult<Order>(_orderDal.Get(o => o.OrderId == orderId));
+            return new SuccessDataResult<Order>(await _orderDal.Get(o => o.OrderId == orderId));
         }
 
-        public IDataResult<List<Order>> GetAll()
+        public async Task<IDataResult<List<Order>>> GetAll()
         {
-            return new SuccessDataResult<List<Order>>(_orderDal.GetAll(), "Veriler Getirildi");
+            return new SuccessDataResult<List<Order>>(await _orderDal.GetAll(), "Veriler Getirildi");
         }
 
         public IResult Update(Order order)
@@ -47,9 +47,9 @@ namespace Business.Concrete
             _orderDal.Update(order);
             return new SuccessResult("Güncellendi");
         }
-        public IDataResult<List<OrderDetailDto>> GetOrderDetails()
+        public async Task<IDataResult<List<OrderDetailDto>>> GetOrderDetails()
         {
-            return new SuccessDataResult<List<OrderDetailDto>>(_orderDal.GetOrderDetails(), "Order detaylı bilgileri getirildi");
+            return new SuccessDataResult<List<OrderDetailDto>>(await _orderDal.GetOrderDetails(), "Order detaylı bilgileri getirildi");
         }
 
     }

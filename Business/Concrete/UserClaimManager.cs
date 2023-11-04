@@ -33,14 +33,14 @@ namespace Business.Concrete
             return new SuccessResult("Rol Silindi");
         }
 
-        public IDataResult<List<UserOperationClaim>> GetAll()
+        public async Task<IDataResult<List<UserOperationClaim>>> GetAll()
         {
-            return new SuccessDataResult<List<UserOperationClaim>>(_userClaimDal.GetAll());
+            return new SuccessDataResult<List<UserOperationClaim>>(await _userClaimDal.GetAll());
         }
 
-        public IDataResult<UserOperationClaim> GetById(int userClaimId)
+        public async Task<IDataResult<UserOperationClaim>> GetById(int userClaimId)
         {
-            return new SuccessDataResult<UserOperationClaim>(_userClaimDal.Get(uc => uc.UserClaimId == userClaimId));
+            return new SuccessDataResult<UserOperationClaim>(await _userClaimDal.Get(uc => uc.UserClaimId == userClaimId));
         }
 
         public IResult Update(UserOperationClaim userClaim)
@@ -48,9 +48,9 @@ namespace Business.Concrete
             _userClaimDal.Update(userClaim);
             return new SuccessResult();
         }
-        public IDataResult<List<UserClaimDetailDto>> GetUserClaimDetails()
+        public async Task<IDataResult<List<UserClaimDetailDto>>> GetUserClaimDetails()
         {
-            return new SuccessDataResult<List<UserClaimDetailDto>>(_userClaimDal.GetUserClaimDetails(), "UserClaim detaylı bilgileri getirildi.");
+            return new SuccessDataResult<List<UserClaimDetailDto>>(await _userClaimDal.GetUserClaimDetails(), "UserClaim detaylı bilgileri getirildi.");
         }
 
        

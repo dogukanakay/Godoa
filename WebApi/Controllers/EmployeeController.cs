@@ -15,9 +15,9 @@ namespace WebApi.Controllers
             _employeeService = employeeService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _employeeService.GetAll();
+            var result = await _employeeService.GetAll();
 
             if (result.Success)
             {
@@ -57,9 +57,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int emlpoyeeId)
+        public async Task<IActionResult> GetById(int emlpoyeeId)
         {
-            var result = _employeeService.GetById(emlpoyeeId);
+            var result = await _employeeService.GetById(emlpoyeeId);
             if (result.Success)
             {
                 return Ok(result);
@@ -67,9 +67,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetAllDetials() 
+        public async Task<IActionResult> GetAllDetials() 
         {
-            var result = _employeeService.GetEmployeeDetails();
+            var result = await _employeeService.GetEmployeeDetails();
             if (result.Success)
             {
                 return Ok(result);

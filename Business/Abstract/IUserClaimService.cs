@@ -16,8 +16,8 @@ namespace Business.Abstract
         IResult Delete(UserOperationClaim userClaim);
         IResult Update(UserOperationClaim userClaim);
 
-        IDataResult<List<UserOperationClaim>> GetAll();
-        IDataResult<UserOperationClaim> GetById(int userClaimId);
-        IDataResult<List<UserClaimDetailDto>> GetUserClaimDetails();
+        Task<IDataResult<List<UserOperationClaim>>> GetAll();
+        Task<IDataResult<UserOperationClaim>> GetById(int userClaimId);
+        Task<IDataResult<List<UserClaimDetailDto>>> GetUserClaimDetails();
     }
 }
