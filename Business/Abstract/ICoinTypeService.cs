@@ -15,8 +15,8 @@ namespace Business.Abstract
         IResult Delete(CoinType coinType);
         IResult Update(CoinType coinType);
 
-        IDataResult<List<CoinType>> GetAll();
-        IDataResult<CoinType> GetById(int coinTypeId);
-        IDataResult<List<CoinTypeDetailDto>> GetCoinTypeDetails(); 
+        Task<IDataResult<List<CoinType>>> GetAll();
+        Task<IDataResult<CoinType>> GetById(int coinTypeId);
+        Task<IDataResult<List<CoinTypeDetailDto>>> GetCoinTypeDetails(); 
     }
 }

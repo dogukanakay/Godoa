@@ -3,6 +3,7 @@ using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Context;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,12 @@ namespace DataAccess.Concrete.EntityFramework
                        ClaimName=cl.ClaimName
                    };
         }
-        public List<UserClaimDetailDto> GetUserClaimDetails()
+        public async Task<List<UserClaimDetailDto>> GetUserClaimDetails()
         {
             using(GodoaContext context = new GodoaContext())
             {
-                var result= GetUserClaimDetailQuery(context).ToList();
-                return result.ToList();
+                var result= GetUserClaimDetailQuery(context);
+                return await result.ToListAsync();
             }
         }
     }

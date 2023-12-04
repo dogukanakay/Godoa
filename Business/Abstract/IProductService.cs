@@ -15,8 +15,8 @@ namespace Business.Abstract
         IResult Delete(Product product);
         IResult Update(Product product);
 
-        IDataResult<List<Product>> GetAll();
-        IDataResult<Product> GetById(int productId);
-        IDataResult<List<ProductDetailDto>> GetProductDetails(); 
+        Task<IDataResult<List<Product>>> GetAll();
+        Task<IDataResult<Product>> GetById(int productId);
+        Task<IDataResult<List<ProductDetailDto>>> GetProductDetails(); 
     }
 }

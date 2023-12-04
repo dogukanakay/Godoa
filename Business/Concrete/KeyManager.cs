@@ -31,14 +31,14 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Keys> GetById(int keyId)
+        public async Task<IDataResult<Keys>> GetById(int keyId)
         {
-            return new SuccessDataResult<Keys>(_keyDal.Get(k=>k.KeyId==keyId));
+            return new SuccessDataResult<Keys>(await _keyDal.Get(k=>k.KeyId==keyId));
         }
 
-        public IDataResult<List<Keys>> GetAll()
+        public async Task<IDataResult<List<Keys>>> GetAll()
         {
-            return new SuccessDataResult<List<Keys>>(_keyDal.GetAll(), "Veriler Getirildi");
+            return new SuccessDataResult<List<Keys>>(await _keyDal.GetAll(), "Veriler Getirildi");
         }
 
         public IResult Update(Keys key)
@@ -46,9 +46,9 @@ namespace Business.Concrete
             _keyDal.Update(key);
             return new SuccessResult("Güncellendi");
         }
-        public IDataResult<List<KeyDetailDto>> GetKeyDetails() 
+        public async Task<IDataResult<List<KeyDetailDto>>> GetKeyDetails() 
         {
-            return new SuccessDataResult<List<KeyDetailDto>>(_keyDal.GetKeyDetails(), "Keys detaylı bilgileri getirildi.");
+            return new SuccessDataResult<List<KeyDetailDto>>(await _keyDal.GetKeyDetails(), "Keys detaylı bilgileri getirildi.");
         }
     }
 }

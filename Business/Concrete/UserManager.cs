@@ -29,14 +29,14 @@ namespace Business.Concrete
             return new SuccessResult("Kullanıcı Silindi");
         }
 
-        public IDataResult<User> GetById(int userId)
+        public async Task<IDataResult<User>> GetById(int userId)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == userId),"Kullanıcı Getirildi");
+            return new SuccessDataResult<User>(await _userDal.Get(u => u.UserId == userId),"Kullanıcı Getirildi");
         }
 
-        public IDataResult<List<User>> GetAll()
+        public async Task<IDataResult<List<User>>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(),"Kullanıcılar Getirildi");
+            return new SuccessDataResult<List<User>>(await _userDal.GetAll(),"Kullanıcılar Getirildi");
         }
 
         public IResult Update(User user)
@@ -50,9 +50,6 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
 
-        public IDataResult<User> GetByEmail(string email)
-        {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
-        }
+        
     }
 }

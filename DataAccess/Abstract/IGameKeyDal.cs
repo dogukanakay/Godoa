@@ -11,6 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface IGameKeyDal : IEntityRepository<GameKey>
     {
-        List<GameKeyDetailDto> GetGameKeyDetails();
+        Task<List<GameKeyDetailDto>> GetGameKeyDetails();
     } 
 }

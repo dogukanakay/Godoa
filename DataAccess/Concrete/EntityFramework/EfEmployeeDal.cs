@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework.Context;
 using Entities.Concrete;
 using Entities.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +30,12 @@ namespace DataAccess.Concrete.EntityFramework
                       
                    };
         }
-        public List<EmployeeDetailDto> GetEmployeeDetails()
+        public async Task<List<EmployeeDetailDto>> GetEmployeeDetails()
         {
             using (GodoaContext context = new GodoaContext())
             {
-                var result = GetEmployeeDetailQuery(context).ToList();
-                return result.ToList();
+                var result = GetEmployeeDetailQuery(context);
+                return await result.ToListAsync();
 
             }
         }

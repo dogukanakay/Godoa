@@ -15,8 +15,8 @@ namespace Business.Abstract
         IResult Delete(Keys keys);
         IResult Update(Keys keys);
 
-        IDataResult<List<Keys>> GetAll();
-        IDataResult<Keys> GetById(int keysId);
-        IDataResult<List<KeyDetailDto>> GetKeyDetails();
+        Task<IDataResult<List<Keys>>> GetAll();
+        Task<IDataResult<Keys>> GetById(int keysId);
+        Task<IDataResult<List<KeyDetailDto>>> GetKeyDetails();
     }
 }

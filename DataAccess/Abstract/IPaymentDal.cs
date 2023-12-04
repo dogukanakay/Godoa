@@ -11,6 +11,6 @@ namespace DataAccess.Abstract
 {
     public interface IPaymentDal : IEntityRepository<Payment>
     {
-        List<PaymentDetailDto> GetPaymentDetails();
+        Task<List<PaymentDetailDto>> GetPaymentDetails();
     }
 }

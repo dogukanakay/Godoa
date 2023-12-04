@@ -15,8 +15,8 @@ namespace Business.Abstract
         IResult Delete(Seller seller);
         IResult Update(Seller seller);
 
-        IDataResult<List<Seller>> GetAll();
-        IDataResult<Seller> GetById(int sellerId);
-        IDataResult<List<SellerDetailDto>> GetSellerDetails();
+        Task<IDataResult<List<Seller>>> GetAll();
+        Task<IDataResult<Seller>> GetById(int sellerId);
+        Task<IDataResult<List<SellerDetailDto>>> GetSellerDetails();
     }
 }

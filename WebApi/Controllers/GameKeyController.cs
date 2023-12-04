@@ -15,9 +15,9 @@ namespace WebApi.Controllers
             _gameKeyService = gameKeyService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _gameKeyService.GetAll();
+            var result = await _gameKeyService.GetAll();
 
             if (result.Success)
             {
@@ -58,9 +58,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int gameKeyId)
+        public async Task<IActionResult> GetById(int gameKeyId)
         {
-            var result = _gameKeyService.GetById(gameKeyId);
+            var result = await _gameKeyService.GetById(gameKeyId);
             if (result.Success)
             {
                 return Ok(result);
@@ -68,9 +68,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetAllDetials()
+        public async Task<IActionResult> GetAllDetials()
         {
-            var result = _gameKeyService.GetGameKeyDetails();
+            var result = await _gameKeyService.GetGameKeyDetails();
             if (result.Success)
             {
                 return Ok(result);

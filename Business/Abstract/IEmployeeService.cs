@@ -16,9 +16,9 @@ namespace Business.Abstract
             IResult Delete(Employee employee);
             IResult Update(Employee employee);
 
-            IDataResult<List<Employee>> GetAll();
-            IDataResult<Employee> GetById(int emloyeeId);
-            IDataResult<List<EmployeeDetailDto>> GetEmployeeDetails();
+            Task<IDataResult<List<Employee>>> GetAll();
+            Task<IDataResult<Employee>> GetById(int emloyeeId);
+            Task<IDataResult<List<EmployeeDetailDto>>> GetEmployeeDetails();
        
     }
 }

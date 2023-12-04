@@ -32,14 +32,14 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<OperationClaim> GetById(int claimId)
+        public async Task<IDataResult<OperationClaim>> GetById(int claimId)
         {
-            return new SuccessDataResult<OperationClaim>(_claimDal.Get(c=>c.ClaimId == claimId ));
+            return new SuccessDataResult<OperationClaim>(await _claimDal.Get(c=>c.ClaimId == claimId ));
         }
 
-        public IDataResult<List<OperationClaim>> GetAll()
+        public async Task<IDataResult<List<OperationClaim>>> GetAll()
         {
-            return new SuccessDataResult<List<OperationClaim>>(_claimDal.GetAll(), "Veriler Getirildi");
+            return new SuccessDataResult<List<OperationClaim>>(await _claimDal.GetAll(), "Veriler Getirildi");
         }
 
         public IResult Update(OperationClaim claim)

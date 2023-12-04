@@ -15,8 +15,8 @@ namespace Business.Abstract
         IResult Delete(Skin skin);
         IResult Update(Skin skin);
 
-        IDataResult<List<Skin>> GetAll();
-        IDataResult<Skin> GetById(int skinId);
-        IDataResult<List<SkinDetailDto>> GetSkinDetails();
+        Task<IDataResult<List<Skin>>> GetAll();
+        Task<IDataResult<Skin>> GetById(int skinId);
+        Task<IDataResult<List<SkinDetailDto>>> GetSkinDetails();
     }
 }

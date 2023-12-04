@@ -15,9 +15,9 @@ namespace WebApi.Controllers
             _inGameCoinService = inGameCoinService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _inGameCoinService.GetAll();
+            var result = await _inGameCoinService.GetAll();
 
             if (result.Success)
             {
@@ -57,9 +57,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int inGameCoinId)
+        public async Task<IActionResult> GetById(int inGameCoinId)
         {
-            var result = _inGameCoinService.GetById(inGameCoinId);
+            var result = await _inGameCoinService.GetById(inGameCoinId);
             if (result.Success)
             { 
                 return Ok(result);
@@ -67,9 +67,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetAllDetials()
+        public async Task<IActionResult> GetAllDetials()
         {
-            var result = _inGameCoinService.GetInGameCoinDetils();
+            var result = await _inGameCoinService.GetInGameCoinDetils();
             if (result.Success)
             {
                 return Ok(result);

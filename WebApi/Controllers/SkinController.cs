@@ -17,9 +17,9 @@ namespace WebApi.Controllers
 
         [HttpGet("getall")]
 
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _skinService.GetAll();
+            var result = await _skinService.GetAll();
 
             if(result.Success) 
             {
@@ -71,9 +71,9 @@ namespace WebApi.Controllers
 
         [HttpGet("getbyid")]
 
-        public IActionResult GetById(int skinId)
+        public async Task<IActionResult> GetById(int skinId)
         {
-            var result = _skinService.GetById(skinId);
+            var result = await _skinService.GetById(skinId);
 
             if (result.Success)
             {
@@ -82,9 +82,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetallDetails()
+        public async Task<IActionResult> GetallDetails()
         {
-            var result = _skinService.GetSkinDetails();
+            var result = await _skinService.GetSkinDetails();
             if (result.Success)
             {
                 return Ok(result);

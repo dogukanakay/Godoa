@@ -31,14 +31,14 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<Seller> GetById(int sellerId)
+        public async Task<IDataResult<Seller>> GetById(int sellerId)
         {
-            return new SuccessDataResult<Seller>(_sellerDal.Get(s => s.SellerId == sellerId));
+            return new SuccessDataResult<Seller>(await _sellerDal.Get(s => s.SellerId == sellerId));
         }
 
-        public IDataResult<List<Seller>> GetAll()
+        public async Task<IDataResult<List<Seller>>> GetAll()
         {
-            return new SuccessDataResult<List<Seller>>(_sellerDal.GetAll(), "Veriler Getirildi");
+            return new SuccessDataResult<List<Seller>>(await _sellerDal.GetAll(), "Veriler Getirildi");
         }
 
         public IResult Update(Seller seller)
@@ -46,9 +46,9 @@ namespace Business.Concrete
             _sellerDal.Update(seller);
             return new SuccessResult("Güncellendi");
         }
-        public IDataResult<List<SellerDetailDto>> GetSellerDetails() 
+        public async Task<IDataResult<List<SellerDetailDto>>> GetSellerDetails() 
         {
-            return new SuccessDataResult<List<SellerDetailDto>>(_sellerDal.GetSellerDetails(), "Seller detaylı bilgileri getirildi.");
+            return new SuccessDataResult<List<SellerDetailDto>>(await _sellerDal.GetSellerDetails(), "Seller detaylı bilgileri getirildi.");
         }
     }
 }

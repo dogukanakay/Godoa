@@ -31,15 +31,15 @@ namespace Business.Concrete
             return new SuccessResult("Silindi");
         }
 
-        public IDataResult<InGameCoin> GetById(int inGameCoinId)
+        public  async Task<IDataResult<InGameCoin>> GetById(int inGameCoinId)
         {
-            return new SuccessDataResult<InGameCoin>(_inGameCoinDal.Get(s => s.InGameCoinId == inGameCoinId));
+            return new SuccessDataResult<InGameCoin>(await _inGameCoinDal.Get(s => s.InGameCoinId == inGameCoinId));
 
         }
 
-        public IDataResult<List<InGameCoin>> GetAll()
+        public async Task<IDataResult<List<InGameCoin>>> GetAll()
         {
-            return new SuccessDataResult<List<InGameCoin>>(_inGameCoinDal.GetAll(), "Verileri Getirildi");
+            return new SuccessDataResult<List<InGameCoin>>(await _inGameCoinDal.GetAll(), "Verileri Getirildi");
         }
 
         public IResult Update(InGameCoin inGameCoin)
@@ -47,9 +47,9 @@ namespace Business.Concrete
             _inGameCoinDal.Update(inGameCoin);
             return new SuccessResult("Güncellendi");
         }
-        public IDataResult<List<InGameCoinDetailDto>> GetInGameCoinDetils()
+        public async Task<IDataResult<List<InGameCoinDetailDto>>> GetInGameCoinDetils()
         {
-            return new SuccessDataResult<List<InGameCoinDetailDto>>(_inGameCoinDal.GetInGameCoinDetails(), "GameKey detaylı bilgileri getirildi.");
+            return new SuccessDataResult<List<InGameCoinDetailDto>>(await _inGameCoinDal.GetInGameCoinDetails(), "GameKey detaylı bilgileri getirildi.");
         }
     }
 }

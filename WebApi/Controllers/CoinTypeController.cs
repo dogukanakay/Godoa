@@ -15,9 +15,9 @@ namespace WebApi.Controllers
             _coinTypeService=coinTypeService;
         }
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _coinTypeService.GetAll();
+            var result = await _coinTypeService.GetAll();
 
             if (result.Success)
             {
@@ -59,9 +59,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult GetById(int coinTypeId)
+        public async Task<IActionResult> GetById(int coinTypeId)
         {
-            var result = _coinTypeService.GetById(coinTypeId);
+            var result = await _coinTypeService.GetById(coinTypeId);
             if (result.Success)
             { 
                 return Ok(result); 
@@ -69,9 +69,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public IActionResult GetallDetails()
+        public async Task<IActionResult> GetallDetails()
         {
-            var result = _coinTypeService.GetCoinTypeDetails();
+            var result = await _coinTypeService.GetCoinTypeDetails();
             if (result.Success)
             {
                 return Ok(result);
