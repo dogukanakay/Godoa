@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Aspects.Caching;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -36,6 +37,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Product>(await _productDal.Get(p=>p.ProductId == productId));
         }
 
+        
         public async Task<IDataResult<List<Product>>> GetAll()
         {
             return new SuccessDataResult<List<Product>>(await _productDal.GetAll(), "Veriler Getirildi");

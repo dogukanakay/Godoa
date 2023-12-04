@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-DNUIALQ\SQLKOD; Database= Godoa; Trusted_Connection=true; Encrypt=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(@"Server=DOGUKAN\SQLEXPRESS; Database= Godoa; Trusted_Connection=true; Encrypt=True;TrustServerCertificate=True");
         }
     }
 }

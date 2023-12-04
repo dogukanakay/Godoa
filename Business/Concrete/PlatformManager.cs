@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Aspects.Caching;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -23,7 +24,7 @@ namespace Business.Concrete
             _platformDal.Add(platform);
             return new SuccessResult("Eklendi");
         }
-
+        [CacheRemoveAspect("IPlatformService.Get")]
         public IResult Delete(Platform platform)
         {
             _platformDal.Delete(platform);
@@ -35,6 +36,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Platform>(await _platformDal.Get(p => p.PlatformId == platformId));
         }
 
+        [CacheAspect]
         public async Task<IDataResult<List<Platform>>> GetAll()
         {
             return new SuccessDataResult<List<Platform>>(await _platformDal.GetAll(), "Veriler Getirildi");
