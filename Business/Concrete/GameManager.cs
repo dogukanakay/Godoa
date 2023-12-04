@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -12,13 +14,14 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class GameManager:IGameService
+    public class GameManager : IGameService
     {
         IGameDal _gameDal;
         public GameManager(IGameDal gameDal)
         {
             _gameDal = gameDal;
         }
+        [ValidationAspect(typeof(GameValidator))]
         public IResult Add(Game game)
         {
             _gameDal.Add(game);
