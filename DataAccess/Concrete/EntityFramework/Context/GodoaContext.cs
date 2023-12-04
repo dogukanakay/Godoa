@@ -24,8 +24,6 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Platform> Platforms { get; set; }
-        public DbSet<Seller> Sellers { get; set; }
-        public DbSet<Skin> Skins { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }

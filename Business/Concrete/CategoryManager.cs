@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Aspects.Caching;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -24,7 +25,7 @@ namespace Business.Concrete
             _categoryDal.Add(category);
             return new SuccessResult("Eklendi");
         }
-
+        [CacheRemoveAspect("ICategoryService.Get")]
         public IResult Delete(Category category)
         {
             _categoryDal.Delete(category);
@@ -36,7 +37,7 @@ namespace Business.Concrete
             return  new SuccessDataResult<Category>(await _categoryDal.Get(c => c.CategoryId == categoryId),Messages.ExampleSuccess);
         
         }
-
+        [CacheAspect]
         public async Task<IDataResult<List<Category>>> GetAll()
         {
             return new SuccessDataResult<List<Category>>(await _categoryDal.GetAll(),"Verileri Getirildi");

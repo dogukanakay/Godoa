@@ -80,6 +80,43 @@ namespace Business.Concrete
 
         }
 
+        public async Task<IDataResult<User>> Update(UserForUpdateDto userForUpdateDto)
+        {
+            var userToCheck = await _userDal.Get(u => u.UserId == userForUpdateDto.UserId && u.Status);
+            
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(userForUpdateDto.Password, out passwordHash, out passwordSalt);
+            if (!HashingHelper.VerifyPasswordHash(userForUpdateDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            {
+                return new ErrorDataResult<User>(Messages.PasswordError);
+            }
+            var user = new User
+            {
+                UserId= userForUpdateDto.UserId,
+                Email = userForUpdateDto.Email,
+                UserName = userForUpdateDto.UserName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                FirstName = userForUpdateDto.FirstName,
+                LastName = userForUpdateDto.LastName,
+                BirthDate = userForUpdateDto.BirthDate,
+                Phone = userForUpdateDto.Phone,
+                Status = true,
+                CreateDate = DateTime.UtcNow
+
+
+            };
+            var result = _userService.Update(user);
+            if (result.Success)
+            {
+                return new SuccessDataResult<User>(user, Messages.UserRegistered);
+            }
+            else
+            {
+                return new ErrorDataResult<User>(user, Messages.UserRegisterError);
+            }
+        }
+
         public async Task<IResult> UserExist(string email)
         {
             if (await _userDal.Get(u => u.Email == email) != null)
