@@ -61,12 +61,6 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
 
-            builder.RegisterType<SellerManager>().As<ISellerService>().SingleInstance();
-            builder.RegisterType<EfSellerDal>().As<ISellerDal>().SingleInstance();
-
-            builder.RegisterType<SkinManager>().As<ISkinService>().SingleInstance();
-            builder.RegisterType<EfSkinDal>().As<ISkinDal>().SingleInstance();
-
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 

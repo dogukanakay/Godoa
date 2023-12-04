@@ -17,7 +17,6 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("getall")]
-
         public async Task<IActionResult> GetAll()
         {
             var result = await _categoryService.GetAll();

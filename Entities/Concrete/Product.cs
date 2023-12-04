@@ -13,7 +13,6 @@ namespace Entities.Concrete
         [Key]
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public int? SkinId { get; set; }
         public int? GameKeyId { get; set; }
         public int? InGameCoinId { get; set; }
 
