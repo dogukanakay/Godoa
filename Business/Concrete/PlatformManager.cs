@@ -1,5 +1,9 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Caching;
+using Core.Aspects.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -19,6 +23,8 @@ namespace Business.Concrete
         {
             _platformDal = platformDal;
         }
+        [LogAspect(typeof(FileLogger))]
+        [ValidationAspect(typeof(PlatformValidator))]
         public IResult Add(Platform platform)
         {
             _platformDal.Add(platform);

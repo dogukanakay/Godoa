@@ -8,6 +8,7 @@ using Business.DependencyResolvers.Autofac;
 using Core.DependencyResolvers;
 using Core.Utilities.IoC;
 using Core.Extensions;
+using Core.Extensions.ErrorMiddleware;
 
 namespace WebApi
 {
@@ -25,8 +26,6 @@ namespace WebApi
             builder.Services.AddSwaggerGen();
             builder.Services.AddControllers();
 
-            //builder.Services.AddSingleton<IPlatformDal, EfPlatformDal>();
-            //builder.Services.AddSingleton<IPlatformService, PlatformManager>();
             builder.Host.UseServiceProviderFactory(services => new AutofacServiceProviderFactory())
                         .ConfigureContainer<ContainerBuilder>(builder => { builder.RegisterModule(new BusinessModule()); });
 
@@ -45,6 +44,8 @@ namespace WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.ConfigureCustomExceptionMiddleware();
+           
 
             app.UseHttpsRedirection();
 
