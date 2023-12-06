@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Caching;
@@ -25,18 +26,22 @@ namespace Business.Concrete
         }
         [LogAspect(typeof(FileLogger))]
         [ValidationAspect(typeof(PlatformValidator))]
+        [CacheRemoveAspect("IPlatformService.Get")]
+        //[SecuredOperation("admin,employee")]
         public IResult Add(Platform platform)
         {
             _platformDal.Add(platform);
             return new SuccessResult("Eklendi");
         }
         [CacheRemoveAspect("IPlatformService.Get")]
+        //[SecuredOperation("admin,employee")]
         public IResult Delete(Platform platform)
         {
             _platformDal.Delete(platform);
             return new SuccessResult("Silindi");
         }
 
+        [CacheAspect]
         public async Task<IDataResult<Platform>> GetById(int platformId)
         {
             return new SuccessDataResult<Platform>(await _platformDal.Get(p => p.PlatformId == platformId));
@@ -48,6 +53,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Platform>>(await _platformDal.GetAll(), "Veriler Getirildi");
         }
 
+        [CacheRemoveAspect("IPlatformService.Get")]
+        [ValidationAspect(typeof(PlatformValidator))]
+       // [SecuredOperation("admin,employee")]
         public IResult Update(Platform platform)
         {
             _platformDal.Update(platform);

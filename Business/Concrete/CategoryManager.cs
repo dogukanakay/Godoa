@@ -1,6 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Caching;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -20,18 +23,24 @@ namespace Business.Concrete
         {
             _categoryDal = categoryDal;
         }
+      //  [SecuredOperation("admin,employee")]
+        [CacheRemoveAspect("ICategoryService.Get")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(Category category)
         {
             _categoryDal.Add(category);
             return new SuccessResult("Eklendi");
         }
+  
+       // [SecuredOperation("admin,employee")]
         [CacheRemoveAspect("ICategoryService.Get")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Delete(Category category)
         {
             _categoryDal.Delete(category);
             return new SuccessResult("Silindi");
         }
-
+        [CacheAspect]
         public async Task<IDataResult<Category>> GetById(int categoryId)
         {
             return  new SuccessDataResult<Category>(await _categoryDal.Get(c => c.CategoryId == categoryId),Messages.ExampleSuccess);
@@ -43,6 +52,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Category>>(await _categoryDal.GetAll(),"Verileri Getirildi");
         }
 
+        [CacheRemoveAspect("ICategoryService.Get")]
+       // [SecuredOperation("admin,employee")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Update(Category category)
         {
             _categoryDal.Update(category);

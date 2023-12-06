@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -18,12 +21,16 @@ namespace Business.Concrete
         {
             _coinTypeDal = coinTypeDal;
         }
+     //   [SecuredOperation("admin,employee")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(CoinType coinType)
         {
             _coinTypeDal.Add(coinType);
             return new SuccessResult("Eklendi");
         }
 
+    //    [SecuredOperation("admin,employee")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Delete(CoinType coinType)
         {
             _coinTypeDal.Delete(coinType);
@@ -41,6 +48,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CoinType>>(await _coinTypeDal.GetAll(), "Verileri Getirildi");
         }
 
+    //    [SecuredOperation("admin,employee")]
+        [LogAspect(typeof(FileLogger))]
         public IResult Update(CoinType coinType)
         {
             _coinTypeDal.Update(coinType);

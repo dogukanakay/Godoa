@@ -12,7 +12,7 @@ namespace Entities.DTOs
         public string GameName { get; set; }
         public string KeyDetail { get; set; }
         public int Stock { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public bool Status { get; set; }
 
     }

@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -12,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
+   // [SecuredOperation("admin")]
+    [LogAspect(typeof(FileLogger))]
     public class ClaimManager : IClaimService
     {
         IOperationClaimDal _claimDal;

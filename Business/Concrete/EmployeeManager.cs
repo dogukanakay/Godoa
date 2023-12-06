@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -11,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
+    //[SecuredOperation("admin")]
     public class EmployeeManager:IEmployeeService
     {
         IEmployeeDal _employeeDal;
@@ -18,12 +22,13 @@ namespace Business.Concrete
         {
             _employeeDal = employeeDal;
         }
+        [LogAspect(typeof(FileLogger))]
         public IResult Add(Employee employee)
         {
             _employeeDal.Add(employee);
             return new SuccessResult("Eklendi");
         }
-
+        [LogAspect(typeof(FileLogger))]
         public IResult Delete(Employee employee)
         {
             _employeeDal.Delete(employee);
@@ -40,7 +45,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Employee>>(await _employeeDal.GetAll(), "Verileri Getirildi");
         }
-
+        [LogAspect(typeof(FileLogger))]
         public IResult Update(Employee employee)
         {
             _employeeDal.Update(employee);

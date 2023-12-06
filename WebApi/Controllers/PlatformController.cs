@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,7 @@ namespace WebApi.Controllers
 
         }
 
-
+        
         [HttpPost("add")]
         public IActionResult Add(Platform platform) 
         {

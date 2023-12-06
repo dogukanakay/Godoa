@@ -58,7 +58,7 @@ namespace Core.Extensions.ErrorMiddleware
             else if (e.GetType() == typeof(UnauthorizedAccessException))
             {
                 message = e.Message;
-                httpContext.Response.StatusCode = 400;
+                httpContext.Response.StatusCode = 401;
 
                 return httpContext.Response.WriteAsync(new ErrorDetails
                 {

@@ -15,7 +15,8 @@ namespace Entities.Concrete
         public int GameKeyId { get; set; }
         public int GameId { get; set; }    
         public int Stock { get; set; }
-        public float Price { get; set; }
+        public int KeyId { get; set; }
+        public double Price { get; set; }
         public bool Status { get; set; }
 
     }
