@@ -9,6 +9,10 @@ using Core.DependencyResolvers;
 using Core.Utilities.IoC;
 using Core.Extensions;
 using Core.Extensions.ErrorMiddleware;
+using Core.Utilities.Security.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Core.Utilities.Security.Encryption;
 
 namespace WebApi
 {
@@ -29,6 +33,23 @@ namespace WebApi
             builder.Host.UseServiceProviderFactory(services => new AutofacServiceProviderFactory())
                         .ConfigureContainer<ContainerBuilder>(builder => { builder.RegisterModule(new BusinessModule()); });
 
+            var tokenOptions =  builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = tokenOptions.Issuer,
+                    ValidAudience = tokenOptions.Audience,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
             builder.Services.AddDependencyResolvers(new ICoreModule[]
            {
                 new CoreModule(),
@@ -48,7 +69,7 @@ namespace WebApi
            
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

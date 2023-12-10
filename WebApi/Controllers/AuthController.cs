@@ -39,14 +39,14 @@ namespace WebApi.Controllers
 
         public async  Task<IActionResult> Register(UserForRegisterDto userForRegisterDto) 
         {
-            var userExists = await _authService.UserExist(userForRegisterDto.Email);
+            var userExists = await _authService.UserExist(userForRegisterDto.Email); //Kullanıcının maili daha önce var mı kontrol ediyor
 
             if (!userExists.Success)
             {
                 return BadRequest(userExists);
             }
-            var userToRegister = _authService.Register(userForRegisterDto);
-            var result = await _authService.CreateAccessToken(userToRegister.Data);
+            var userToRegister = _authService.Register(userForRegisterDto); //Kayıt işlemini yapıyor
+            var result = await _authService.CreateAccessToken(userToRegister.Data); //JWT üretiyor
             if (result.Success) 
             {
                 return Ok(result);

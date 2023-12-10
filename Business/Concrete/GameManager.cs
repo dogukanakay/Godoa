@@ -25,10 +25,10 @@ namespace Business.Concrete
         {
             _gameDal = gameDal;
         }
-       // [SecuredOperation("admin,employee")]
-        [LogAspect(typeof(FileLogger))]
-        [ValidationAspect(typeof(GameValidator))]
-        [CacheRemoveAspect("IGameService.Get")]
+        [SecuredOperation("admin,employee")] //Sadece admin veya employee claimi olan kullanıcılar yapabilir
+        [LogAspect(typeof(FileLogger))] //Yapılan işlemi json formatında loglar
+        [ValidationAspect(typeof(GameValidator))]   //Eklenecek oyunun isim, ücreti gibi özelliklerinin kurallara uygun mu diye kontrol eder
+        [CacheRemoveAspect("IGameService.Get")] //Cache içerisinde daha önce oyunlar var ise hatalı veri gitmemesi için cache içini temizleyecektir.
         public IResult Add(Game game)
         {
             _gameDal.Add(game);
@@ -36,15 +36,15 @@ namespace Business.Concrete
         }
 
        // [SecuredOperation("admin,employee")]
-        [LogAspect(typeof(FileLogger))]
-        [CacheRemoveAspect("IGameService.Get")]
-        public IResult Delete(Game game)
-        {
-            _gameDal.Delete(game);
-            return new SuccessResult("Silindi");
-        }
-        [CacheAspect]
-        public async Task<IDataResult<Game>> GetById(int gameId)
+            [LogAspect(typeof(FileLogger))]
+            [CacheRemoveAspect("IGameService.Get")]
+            public IResult Delete(Game game)
+            {
+                _gameDal.Delete(game);
+                return new SuccessResult("Silindi");
+            }
+        [CacheAspect]   //Getirilen veriyi cache içerisine atacak
+        public async Task<IDataResult<Game>> GetById(int gameId) //Oyunun id sine göre oyunu getirecek
         {
             return new SuccessDataResult<Game>(await _gameDal.Get(s => s.GameId == gameId));
 

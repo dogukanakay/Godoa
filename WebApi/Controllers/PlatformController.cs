@@ -3,6 +3,7 @@ using Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace WebApi.Controllers
 {
@@ -31,10 +32,11 @@ namespace WebApi.Controllers
 
         }
 
-        
+        [Authorize]
         [HttpPost("add")]
         public IActionResult Add(Platform platform) 
         {
+            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
             var result = _platformService.Add(platform);
             if(result.Success)
             {
