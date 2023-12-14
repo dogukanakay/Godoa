@@ -49,7 +49,7 @@ namespace WebApi
                     ClockSkew = TimeSpan.Zero
                 };
             });
-
+            builder.Services.AddCors();
             builder.Services.AddDependencyResolvers(new ICoreModule[]
            {
                 new CoreModule(),
@@ -66,8 +66,8 @@ namespace WebApi
                 app.UseSwaggerUI();
             }
             app.ConfigureCustomExceptionMiddleware();
-           
 
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
