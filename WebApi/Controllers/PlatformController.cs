@@ -32,11 +32,11 @@ namespace WebApi.Controllers
 
         }
 
-        [Authorize]
+        
         [HttpPost("add")]
         public IActionResult Add(Platform platform) 
         {
-            var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+            
             var result = _platformService.Add(platform);
             if(result.Success)
             {

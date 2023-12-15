@@ -17,7 +17,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(u =>u.Phone).MaximumLength(10).WithMessage("Başında sıfır olmadan 10 haneli telefon numarasını giriniz");
             RuleFor(u=>u.Email).EmailAddress();
             RuleFor(u => u.BirthDate).LessThan(DateTime.Now);
-            RuleFor(u=>u.CreateDate).LessThan(DateTime.Now);
+            RuleFor(u=>u.RegistrationDate).LessThan(DateTime.Now);
             RuleFor(u => u.LastName).MinimumLength(1).MaximumLength(20); 
             RuleFor(u=>u.FirstName).MinimumLength(1).MaximumLength(20);
          

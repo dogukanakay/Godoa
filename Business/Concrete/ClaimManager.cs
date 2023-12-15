@@ -17,7 +17,7 @@ namespace Business.Concrete
 {
    // [SecuredOperation("admin")]
     [LogAspect(typeof(FileLogger))]
-    public class ClaimManager : IClaimService
+    public class ClaimManager : IOperationClaimService
     {
         IOperationClaimDal _claimDal;
         public ClaimManager(IOperationClaimDal claimDal)

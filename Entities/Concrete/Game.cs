@@ -1,4 +1,4 @@
-﻿using Core.Entities.Abstracts;
+﻿    using Core.Entities.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,9 +13,9 @@ namespace Entities.Concrete
         [Key]
         public int GameId { get; set; }
         public string GameName { get; set; }
-        public int CategoryId { get; set; }
+        public int GameCategoryId { get; set; }
         public int PlatformId { get; set; }
-        public int TypeId { get; set; }
+        public int GameTypeId { get; set; }
         public string? ImagePath { get; set; }
         public string? Description { get; set; }
         

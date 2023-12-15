@@ -25,7 +25,7 @@ namespace Business.Concrete
         {
             _gameDal = gameDal;
         }
-        [SecuredOperation("admin,employee")] //Sadece admin veya employee claimi olan kullanıcılar yapabilir
+        //[SecuredOperation("admin,employee")] //Sadece admin veya employee claimi olan kullanıcılar yapabilir
         [LogAspect(typeof(FileLogger))] //Yapılan işlemi json formatında loglar
         [ValidationAspect(typeof(GameValidator))]   //Eklenecek oyunun isim, ücreti gibi özelliklerinin kurallara uygun mu diye kontrol eder
         [CacheRemoveAspect("IGameService.Get")] //Cache içerisinde daha önce oyunlar var ise hatalı veri gitmemesi için cache içini temizleyecektir.

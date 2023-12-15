@@ -18,13 +18,14 @@ namespace DataAccess.Concrete.EntityFramework
         {
             return from e in context.Employees
                    join u in context.Users on e.UserId equals u.UserId
+                   join a in context.UserAddresses on u.UserId equals a.UserId
 
                    select new EmployeeDetailDto
                    {
                        EmployeeId = e.EmployeeId,
                        UserName=u.UserName,
                        NationalityIdentity=e.NationalityIdentity,
-                       Address=e.Adress,
+                       Address=a.AddressLine +" "+ a.City +" "+a.Country,
                        Status=e.Status,
                        HireDate=e.HireDate
                       

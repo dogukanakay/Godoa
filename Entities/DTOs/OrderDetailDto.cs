@@ -10,12 +10,10 @@ namespace Entities.DTOs
     public class OrderDetailDto : IDto
     {
         public int OrderId { get; set; }
-        public string ProductName { get; set; }
-        public string UserName { get; set; } 
-        public int Amount { get; set; }
-        public float TotalPrice { get; set; }
-        public string TradeUrl { get; set; }
-        public bool IsConfirmed { get; set; }
+        public string UserName { get; set; }
+        public DateTime OrderDate { get; set; }
+        public double TotalAmount { get; set; }
+        public bool Status { get; set; }
 
     }
 }

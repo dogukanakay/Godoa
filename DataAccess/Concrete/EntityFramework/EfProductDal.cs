@@ -19,16 +19,17 @@ namespace DataAccess.Concrete.EntityFramework
         private IQueryable<ProductDetailDto> GetProductDetailQuery(GodoaContext context) 
         {
             return from p in context.Products
-                   join gk in context.GameKeys on p.GameKeyId equals gk.GameKeyId
-                   join k in context.Keys on gk.GameId equals k.GameId
-                   join i in context.inGameCoins on p.InGameCoinId equals i.InGameCoinId
-                   join ct in context.CoinTypes on i.CoinTypeId equals ct.CoinTypeId
+                   join pg in context.ProductCategories on p.ProductCategoryId equals pg.ProductCategoryId
+                  
                    select new ProductDetailDto
                    {
-                       ProductId = p.ProductId,
-                       ProductName = p.ProductName,             
-                       GameKeyDetail=k.KeyDetail,
-                       InGameCoinName=ct.CoinTypeName
+                      ProductId = p.ProductId,
+                      ProductCategoryName =pg.ProductCategoryName,
+                      ProductName = p.ProductName,
+                      Description = p.Description,
+                      Price = p.Price,
+                      StockQuantity = p.StockQuantity,
+                      Status = p.Status
 
                    };
         }

@@ -21,7 +21,7 @@ namespace Core.Entities.Concrete
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string? PhotoPath { get; set; }
+        public DateTime RegistrationDate { get; set; }
         public bool Status { get; set; }
-        public DateTime CreateDate { get; set; }
     }
 }

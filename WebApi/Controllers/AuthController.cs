@@ -54,24 +54,7 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
-           
-        public async Task<IActionResult> Update(UserForUpdateDto userForUpdateDto)
-        {
-            var userExists = await _authService.UserExist(userForUpdateDto.Email);
-
-            if (!userExists.Success)
-            {
-                return BadRequest(userExists);
-            }
-            var userToUpdate = _authService.Update(userForUpdateDto);
-            var result = await _authService.CreateAccessToken(userToUpdate.Result.Data);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
+       
 
     }
 }

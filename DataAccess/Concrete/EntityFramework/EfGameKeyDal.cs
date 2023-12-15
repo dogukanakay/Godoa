@@ -16,33 +16,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
        
 
-        private IQueryable<GameKeyDetailDto> GetGameKeyDetailQuery(GodoaContext context)
-        {
-            return from gk in context.GameKeys 
-                   join g in context.Games on gk.GameId equals g.GameId
-                   join k in context.Keys on gk.GameId equals k.GameId
-
-                   select new GameKeyDetailDto
-                   {
-                       GameKeyId=gk.GameKeyId,
-                       GameName = g.GameName,
-                       KeyDetail = k.KeyDetail,
-                       Stock = gk.Stock,
-                       Price= gk.Price,
-                       Status= gk.Status
-
-                   };
-        }
-
-        public async Task<List<GameKeyDetailDto>> GetGameKeyDetails()
-        {
-            using (GodoaContext context = new GodoaContext())
-            {
-                var result = GetGameKeyDetailQuery(context);
-                return await result.ToListAsync();
-
-            }
-        }
+       
 
     }
 }

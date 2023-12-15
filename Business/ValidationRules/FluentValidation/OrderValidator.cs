@@ -12,9 +12,9 @@ namespace Business.ValidationRules.FluentValidation
     {
         public OrderValidator()
         {
-            RuleFor(o=>o.TotalPrice).NotEmpty();
-            RuleFor(o=>o.TotalPrice).GreaterThan(0);
-            RuleFor(o=>o.ProductId).NotNull();
+            RuleFor(o=>o.TotalAmount).NotEmpty();
+            RuleFor(o=>o.TotalAmount).GreaterThan(0);
+            
 
 
         }

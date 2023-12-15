@@ -12,9 +12,9 @@ namespace Entities.DTOs
     {
         public int GameId { get; set; }
         public string GameName { get; set; }
-        public string CategoryName { get; set; }
+        public string GameCategoryName { get; set; }
         public string PlatformName { get; set; }
-        public string TypeName { get; set; }
+        public string GameTypeName { get; set; }
         public string ImagePath { get; set; }
         public string Description { get; set; }
     }

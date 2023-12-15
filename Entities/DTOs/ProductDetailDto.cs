@@ -10,9 +10,11 @@ namespace Entities.DTOs
     public class ProductDetailDto : IDto
     {
         public int ProductId { get; set; }
+        public string ProductCategoryName { get; set; }
         public string ProductName { get; set; }
-        public string SkinName { get; set; }  
-        public string GameKeyDetail { get; set; }
-        public string InGameCoinName { get; set; } 
+        public string Description { get; set; }
+        public double Price { get; set; }
+        public int StockQuantity { get; set; }
+        public bool Status { get; set; }
     }
 }

@@ -59,10 +59,6 @@ namespace Business.Concrete
             _gameKeyDal.Update(gameKey);
             return new SuccessResult("Güncellendi");
         }
-        [CacheAspect]
-        public async Task<IDataResult<List<GameKeyDetailDto>>> GetGameKeyDetails()
-        {
-            return new SuccessDataResult<List<GameKeyDetailDto>>(await _gameKeyDal.GetGameKeyDetails(), "GameKey detaylı bilgileri getirildi.");
-        }
+        
     }
 }

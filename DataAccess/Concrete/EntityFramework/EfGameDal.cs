@@ -18,15 +18,15 @@ namespace DataAccess.Concrete.EntityFramework
         private IQueryable<GameDetailDto> GetGameDetailQuery(GodoaContext context)
         {
             return from g in context.Games
-                   join c in context.Categories on g.CategoryId equals c.CategoryId
+                   join gc in context.GameCategories on g.GameCategoryId equals gc.GameCategoryId
                    join p in context.Platforms on g.PlatformId equals p.PlatformId
-                   join gt in context.GameTypes on g.TypeId equals gt.GameTypeId
+                   join gt in context.GameTypes on g.GameTypeId equals gt.GameTypeId
                    select new GameDetailDto
                    {
                        GameId = g.GameId,
                        GameName = g.GameName,
-                       CategoryName = c.CategoryName,
-                       TypeName = gt.GameTypeName,
+                       GameCategoryName = gc.GameCategoryName,
+                       GameTypeName = gt.GameTypeName,
                        PlatformName = p.PlatformName,
                        Description = g.Description,
                        ImagePath = g.ImagePath

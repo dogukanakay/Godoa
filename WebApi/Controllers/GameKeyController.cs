@@ -67,15 +67,6 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getalldetails")]
-        public async Task<IActionResult> GetAllDetials()
-        {
-            var result = await _gameKeyService.GetGameKeyDetails();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
+        
     }
 }
