@@ -28,8 +28,10 @@ namespace DataAccess.Concrete.EntityFramework
                       ProductName = p.ProductName,
                       Description = p.Description,
                       Price = p.Price,
-                      StockQuantity = p.StockQuantity,
-                      Status = p.Status
+                      StockQuantity = pg.ProductCategoryId == 1 ?
+                               context.GameKeys.Count(gk => gk.ProductId == p.ProductId && !gk.IsUsed) :
+                               context.VirtualCurrencies.Count(vc => vc.ProductId == p.ProductId && !vc.IsUsed),
+                       Status = p.Status
 
                    };
         }

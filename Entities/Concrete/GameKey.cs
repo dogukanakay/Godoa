@@ -15,7 +15,8 @@ namespace Entities.Concrete
         public int GameKeyId { get; set; }
         public int GameId { get; set; }
         public int ProductId { get; set; } 
-        public string GamesKey { get; set; }
-      
+        public string KeyOfGame { get; set; }
+        public bool IsUsed { get; set; }
+
     }
 }

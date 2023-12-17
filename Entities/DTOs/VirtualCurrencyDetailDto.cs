@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Entities.DTOs
 {
-    public class GameKeyDetailDto : IDto
+    public class VirtualCurrencyDetailDto :IDto
     {
-        public int GameKeyId { get; set; }  
+        public int CurrencyId { get; set; }
         public string GameName { get; set; }
         public string ProductName { get; set; }
-        public string KeyDetail { get; set; }
-       
+        public string CurrencyKey { get; set; }
+
     }
 }

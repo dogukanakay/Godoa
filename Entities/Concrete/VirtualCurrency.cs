@@ -15,6 +15,7 @@ namespace Entities.Concrete
         public int CurrencyTypeId { get; set; }
         public int ProductId {  get; set; }
         public string CurrencyKey { get; set; }
+        public bool IsUsed { get; set; }
 
 
     }
