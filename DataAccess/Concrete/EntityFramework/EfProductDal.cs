@@ -20,18 +20,20 @@ namespace DataAccess.Concrete.EntityFramework
         {
             return from p in context.Products
                    join pg in context.ProductCategories on p.ProductCategoryId equals pg.ProductCategoryId
+                   join g in context.Games on p.GameId equals g.GameId
                   
                    select new ProductDetailDto
                    {
                       ProductId = p.ProductId,
                       ProductCategoryName =pg.ProductCategoryName,
+                      GameName = g.GameName,
                       ProductName = p.ProductName,
                       Description = p.Description,
                       Price = p.Price,
-                      StockQuantity = pg.ProductCategoryId == 1 ?
+                      StockQuantity = pg.ProductCategoryId == 2 ?
                                context.GameKeys.Count(gk => gk.ProductId == p.ProductId && !gk.IsUsed) :
                                context.VirtualCurrencies.Count(vc => vc.ProductId == p.ProductId && !vc.IsUsed),
-                       Status = p.Status
+                      Status = p.Status
 
                    };
         }

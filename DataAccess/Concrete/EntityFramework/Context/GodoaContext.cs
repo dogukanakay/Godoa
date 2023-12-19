@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public DbSet<UserAddress> UserAddresses { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DOGUKAN\SQLEXPRESS; Database= Godofa; Trusted_Connection=true; Encrypt=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(@"Server=ABRA; Database= Godofa; Trusted_Connection=true; Encrypt=True;TrustServerCertificate=True");
         }
     }
 }
