@@ -24,6 +24,7 @@ namespace DataAccess.Concrete.EntityFramework
                    select new ProductDetailDto
                    {
                       ProductId = p.ProductId,
+                      ProductCategoryId= p.ProductCategoryId,
                       ProductCategoryName =pg.ProductCategoryName,
                       ProductName = p.ProductName,
                       Description = p.Description,
@@ -45,5 +46,13 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+        public async Task<List<ProductDetailDto>> GetProductDetailsByCategory(ProductCategory productCategory)
+        {
+            using (GodoaContext context = new GodoaContext())
+            {
+                var result = GetProductDetailQuery(context).Where(p=>p.ProductCategoryId == productCategory.ProductCategoryId);
+                return await result.ToListAsync();
+            }
+        }
     }
 }

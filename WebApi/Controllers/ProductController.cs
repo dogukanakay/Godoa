@@ -76,5 +76,15 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getalldetailsbycategory")]
+        public async Task<IActionResult> GetallDetailsByCategory(ProductCategory productCategory)
+        {
+            var result = await _productService.GetProductDetailsByCategory(productCategory);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

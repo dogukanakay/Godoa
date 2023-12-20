@@ -18,6 +18,7 @@ namespace Business.Abstract
         Task<IDataResult<List<Product>>> GetAll();
         Task<IDataResult<Product>> GetById(int productId);
         Task<IDataResult<List<ProductDetailDto>>> GetProductDetails();
-       // Task<int> GetStockQuantityByProductId(int productId, int productCategoryId);
+        Task<IDataResult<List<ProductDetailDto>>> GetProductDetailsByCategory(ProductCategory productCategory);
+        // Task<int> GetStockQuantityByProductId(int productId, int productCategoryId);
     }
 }
