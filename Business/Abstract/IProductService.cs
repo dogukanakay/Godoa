@@ -16,6 +16,7 @@ namespace Business.Abstract
         IResult Update(Product product);
 
         Task<IDataResult<List<Product>>> GetAll();
+        Task<IResult> UpdateStatus(int productId);
         Task<IDataResult<Product>> GetById(int productId);
         Task<IDataResult<List<ProductDetailDto>>> GetProductDetails();
         Task<IDataResult<List<ProductDetailDto>>> GetProductDetailsByCategory(ProductCategory productCategory);

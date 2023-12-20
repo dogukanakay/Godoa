@@ -61,21 +61,44 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<ProductDetailDto>>(await _productDal.GetProductDetailsByCategory(productCategory));
         }
+        public async Task<IResult> UpdateStatus(int productId)
+        {
+            var product = await _productDal.Get(p => p.ProductId == productId);
+            if (product.Status)
+            {
+                product.Status = false;
+            }
+            else
+            {
+                product.Status = true;
+            }
 
-        //public async Task<int> GetStockQuantityByProductId(int productId, int productCategoryId)
-        //{
-        //    if (productCategoryId == 1)
-        //    {
-        //        return await _gameKeyDal.GetStockQuantityOfProduct(productId);
-        //    }
-        //    else if (productCategoryId == 0)
-        //    {
-        //        return await _virtualCurrencyDal.GetStockQuantityOfProduct(productId);
-        //    }
-        //    else
-        //    {
-        //        return 0;
-        //    }
-        //}
+            var result = Update(product);
+            if (result.Success)
+            {
+                return new SuccessResult("Güncelleme Başarılı");
+            }
+            else
+            {
+                return new ErrorResult("Günclleme Başarısız");
+            }
+
+
+
+            //public async Task<int> GetStockQuantityByProductId(int productId, int productCategoryId)
+            //{
+            //    if (productCategoryId == 1)
+            //    {
+            //        return await _gameKeyDal.GetStockQuantityOfProduct(productId);
+            //    }
+            //    else if (productCategoryId == 0)
+            //    {
+            //        return await _virtualCurrencyDal.GetStockQuantityOfProduct(productId);
+            //    }
+            //    else
+            //    {
+            //        return 0;
+            //    }
+            //}
+        }
     }
-}

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -80,6 +81,17 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetallDetails(ProductCategory productCategory)
         {
             var result = await _productService.GetProductDetailsByCategory(productCategory);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("updatestatus")]
+        public async Task<IActionResult> UpdateStatus(ProductDetailDto productDetailDto)
+        {
+            var result = await _productService.UpdateStatus(productDetailDto.ProductId);
             if (result.Success)
             {
                 return Ok(result);
