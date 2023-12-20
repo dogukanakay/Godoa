@@ -28,7 +28,6 @@ namespace Business.Concrete
         [CacheRemoveAspect("IGameKeyService.Get")]
         public IResult Add(GameKey gameKey)
         {
-            gameKey.IsUsed = false;
             _gameKeyDal.Add(gameKey);
             return new SuccessResult("Eklendi");
         }

@@ -58,7 +58,7 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetails")] 
-        public async Task<IActionResult> GetAllDetails()
+        public async Task<IActionResult> GetallDetails()
         {
             var result = await _gameService.GetGameDetails();
             if (result.Success)
