@@ -57,9 +57,34 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(await _productDal.GetProductDetails(), "Product detaylı bilgileri getirildi");
         }
 
+<<<<<<< HEAD
         public async Task<IDataResult<List<ProductDetailDto>>> GetProductDetailsByCategory(ProductCategory productCategory)
         {
             return new SuccessDataResult<List<ProductDetailDto>>(await _productDal.GetProductDetailsByCategory(productCategory));
+=======
+        public async Task<IResult> UpdateStatus(int productId)
+        {
+            var product = await _productDal.Get(p=>p.ProductId  == productId);
+            if (product.Status)
+            {
+                product.Status = false;
+            }
+            else
+            {
+                product.Status = true;
+            }
+
+            var result = Update(product);
+            if(result.Success)
+            {
+                return new SuccessResult("Güncelleme Başarılı");
+            }
+            else
+            {
+                return new ErrorResult("Günclleme Başarısız");
+            }
+            
+>>>>>>> db4722c4c4a36d55cae5aaa0371e864f4a1da301
         }
 
         //public async Task<int> GetStockQuantityByProductId(int productId, int productCategoryId)
