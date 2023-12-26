@@ -57,9 +57,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(await _productDal.GetProductDetails(), "Product detaylı bilgileri getirildi");
         }
 
-        public async Task<IDataResult<List<ProductDetailDto>>> GetProductDetailsByCategory(ProductCategory productCategory)
+        public async Task<IDataResult<List<ProductDetailDto>>> GetProductDetailsByCategory(int categoryId)
         {
-            return new SuccessDataResult<List<ProductDetailDto>>(await _productDal.GetProductDetailsByCategory(productCategory));
+            return new SuccessDataResult<List<ProductDetailDto>>(await _productDal.GetProductDetailsByCategory(categoryId));
         }
         public async Task<IResult> UpdateStatus(int productId)
         {
@@ -102,3 +102,4 @@ namespace Business.Concrete
             //}
         }
     }
+}

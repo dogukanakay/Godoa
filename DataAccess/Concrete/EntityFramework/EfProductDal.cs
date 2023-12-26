@@ -34,7 +34,8 @@ namespace DataAccess.Concrete.EntityFramework
                       StockQuantity = pg.ProductCategoryId == 2 ?
                                context.GameKeys.Count(gk => gk.ProductId == p.ProductId && !gk.IsUsed) :
                                context.VirtualCurrencies.Count(vc => vc.ProductId == p.ProductId && !vc.IsUsed),
-                       Status = p.Status
+                       Status = p.Status,
+
 
                    };
         }
@@ -48,11 +49,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public async Task<List<ProductDetailDto>> GetProductDetailsByCategory(ProductCategory productCategory)
+        public async Task<List<ProductDetailDto>> GetProductDetailsByCategory(int categoryId)
         {
             using (GodoaContext context = new GodoaContext())
             {
-                var result = GetProductDetailQuery(context).Where(p=>p.ProductCategoryId == productCategory.ProductCategoryId);
+                var result = GetProductDetailQuery(context).Where(p=>p.ProductCategoryId == categoryId);
                 return await result.ToListAsync();
             }
         }

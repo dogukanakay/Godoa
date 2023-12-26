@@ -19,7 +19,7 @@ namespace Business.Abstract
         Task<IResult> UpdateStatus(int productId);
         Task<IDataResult<Product>> GetById(int productId);
         Task<IDataResult<List<ProductDetailDto>>> GetProductDetails();
-        Task<IDataResult<List<ProductDetailDto>>> GetProductDetailsByCategory(ProductCategory productCategory);
+        Task<IDataResult<List<ProductDetailDto>>> GetProductDetailsByCategory(int categoryId);
         // Task<int> GetStockQuantityByProductId(int productId, int productCategoryId);
     }
 }

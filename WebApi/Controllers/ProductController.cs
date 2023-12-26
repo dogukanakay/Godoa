@@ -63,12 +63,12 @@ namespace WebApi.Controllers
             var result = await _productService.GetById(productId);
             if (result.Success)
             {
-                return Ok(result); 
+                return Ok(result);
             }
             return BadRequest(result);
         }
         [HttpGet("getalldetails")]
-        public async Task<IActionResult> GetallDetails() 
+        public async Task<IActionResult> GetallDetails()
         {
             var result = await _productService.GetProductDetails();
             if (result.Success)
@@ -78,9 +78,9 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getalldetailsbycategory")]
-        public async Task<IActionResult> GetallDetails(ProductCategory productCategory)
+        public async Task<IActionResult> GetallDetails([FromQuery] int categoryId)
         {
-            var result = await _productService.GetProductDetailsByCategory(productCategory);
+            var result = await _productService.GetProductDetailsByCategory(categoryId);
             if (result.Success)
             {
                 return Ok(result);
