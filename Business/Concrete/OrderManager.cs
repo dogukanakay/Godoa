@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Logging;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Caching;
 using Core.Aspects.Validation;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
@@ -20,6 +21,7 @@ namespace Business.Concrete
     public class OrderManager : IOrderService
     {
         IOrderDal _orderDal;
+        IOrderItemDal _orderItemDal;
 
         public OrderManager(IOrderDal orderDal)
         {
@@ -63,6 +65,53 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<OrderDetailDto>>(await _orderDal.GetOrderDetails(), "Order detaylı bilgileri getirildi");
         }
+
+        [TransactionScopeAspect]
+        public IResult MakeOrder(Product[] products, int userId)
+        {
+            Order order = new Order()
+            {
+                OrderId = 0,
+                OrderDate = DateTime.Now,
+                UserId = userId,
+                TotalAmount = 0,
+                Status = true
+            };
+
+            _orderDal.Add(order);
+
+            Dictionary<int, OrderItem> productOrderItems = new Dictionary<int, OrderItem>();
+
+            foreach (var product in products)
+            {
+                if (productOrderItems.TryGetValue(product.ProductId, out var existingOrderItem))
+                {
+                    existingOrderItem.Quantity++;
+                    existingOrderItem.SubTotal += product.Price;
+                }
+                else
+                {
+                    OrderItem orderItem = new OrderItem()
+                    {
+                        OrderId = order.OrderId,
+                        ProductId = product.ProductId,
+                        Quantity = 1,
+                        SubTotal = product.Price
+                    };
+
+                    productOrderItems.Add(product.ProductId, orderItem);
+                }
+                order.TotalAmount += product.Price;
+            }
+            foreach (var orderItem in productOrderItems.Values)
+            {
+                _orderItemDal.Add(orderItem);
+            }
+
+            _orderDal.Update(order);
+            return new SuccessResult("Sipariş başarıyla oluşturuldu");
+        }
+
 
     }
 }

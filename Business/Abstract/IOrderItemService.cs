@@ -14,9 +14,9 @@ namespace Business.Abstract
         IResult Add(OrderItem orderItem);
         IResult Delete(OrderItem orderItem);
         IResult Update(OrderItem orderItem);
-
         Task<IDataResult<List<OrderItem>>> GetAll();
         Task<IDataResult<OrderItem>> GetById(int orderItemId);
+
         Task<IDataResult<List<OrderItemDetailDto>>> GetOrderItemDetailsOfOrderByOrderId(int orderId);
     }
 }
