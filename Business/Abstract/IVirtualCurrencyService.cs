@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 namespace Business.Abstract
 {
     public interface IVirtualCurrencyService
-    {       
-            IResult Add(VirtualCurrency virtualCurrency);
-            IResult Delete(VirtualCurrency virtualCurrency);
-            IResult Update(VirtualCurrency virtualCurrency);
+    {
+        IResult Add(VirtualCurrency virtualCurrency);
+        IResult Delete(VirtualCurrency virtualCurrency);
+        IResult Update(VirtualCurrency virtualCurrency);
+        Task<IDataResult<VirtualCurrency>> GetIfInStockByProductId(int productId);
+        Task<IDataResult<List<VirtualCurrency>>> GetAll();
+        Task<IDataResult<VirtualCurrency>> GetById(int virtualCurrencyId);
 
-            Task<IDataResult<List<VirtualCurrency>>> GetAll(); 
-            Task<IDataResult<VirtualCurrency>> GetById(int virtualCurrencyId);
-           
-        
+
     }
 }

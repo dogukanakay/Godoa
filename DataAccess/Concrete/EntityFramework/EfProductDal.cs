@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework
                       GameName =  g.GameName,
                       Description = p.Description,
                       Price = p.Price,
-                      StockQuantity = pg.ProductCategoryId == 2 ?
+                      StockQuantity = pg.ProductCategoryId == 1 ?
                                context.GameKeys.Count(gk => gk.ProductId == p.ProductId && !gk.IsUsed) :
                                context.VirtualCurrencies.Count(vc => vc.ProductId == p.ProductId && !vc.IsUsed),
                        Status = p.Status,

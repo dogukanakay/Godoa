@@ -47,6 +47,10 @@ namespace Business.Concrete
             _virtualCurrencyDal.Update(virtualCurrency);
             return new SuccessResult("Güncellendi");
         }
-       
+
+        public async Task<IDataResult<VirtualCurrency>> GetIfInStockByProductId(int productId)
+        {
+            return new SuccessDataResult<VirtualCurrency>(await _virtualCurrencyDal.Get(v => v.ProductId == productId && v.IsUsed==false));
+        }
     }
 }

@@ -5,6 +5,7 @@ using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Caching;
 using Core.Aspects.Validation;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using Core.Entities.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -21,11 +22,16 @@ namespace Business.Concrete
     public class OrderManager : IOrderService
     {
         IOrderDal _orderDal;
-        IOrderItemDal _orderItemDal;
+        IOrderItemService _orderItemService;
+        IGameKeyService _gameKeyService;
+        IVirtualCurrencyService _virtualCurrencyService;
 
-        public OrderManager(IOrderDal orderDal)
+        public OrderManager(IOrderDal orderDal, IOrderItemService orderItemService, IGameKeyService gameKeyService, IVirtualCurrencyService virtualCurrencyService)
         {
             _orderDal = orderDal;
+            _orderItemService = orderItemService;
+            _gameKeyService = gameKeyService;
+            _virtualCurrencyService = virtualCurrencyService;
         }
         [LogAspect(typeof(FileLogger))]
         [ValidationAspect(typeof(OrderValidator))]
@@ -66,8 +72,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OrderDetailDto>>(await _orderDal.GetOrderDetails(), "Order detaylı bilgileri getirildi");
         }
 
+        [CacheRemoveAspect("IOrderService.Get")]
         [TransactionScopeAspect]
-        public IResult MakeOrder(Product[] products, int userId)
+        public IDataResult<List<ReturnOrderDto>> MakeOrder(Product[] products, int userId)
         {
             Order order = new Order()
             {
@@ -77,6 +84,8 @@ namespace Business.Concrete
                 TotalAmount = 0,
                 Status = true
             };
+            List<ReturnOrderDto> returnOrderDto = new List<ReturnOrderDto>();
+            List<ReturnOrderDto> outOfStock = new List<ReturnOrderDto>();
 
             _orderDal.Add(order);
 
@@ -84,6 +93,48 @@ namespace Business.Concrete
 
             foreach (var product in products)
             {
+                if (product.ProductCategoryId == 1)
+                {
+                    var gameKey = _gameKeyService.GetIfİnStockByProductId(product.ProductId).Result.Data;
+                    if (gameKey != null)
+                    {
+                       
+                        gameKey.IsUsed = true;
+                        _gameKeyService.Update(gameKey);
+
+                    }
+                    else
+                    {
+                        outOfStock.Add(new ReturnOrderDto
+                        {
+                            Key = "Stokta Yok",
+                            ProductName = product.ProductName,
+                        });
+                    }
+                }
+                else if (product.ProductCategoryId == 2)
+                {
+                    var virtualCurrency = _virtualCurrencyService.GetIfInStockByProductId(product.ProductId).Result.Data;
+                    if(virtualCurrency != null)
+                    {
+                        returnOrderDto.Add(new ReturnOrderDto
+                        {
+                            ProductName = product.ProductName,
+                            Key = virtualCurrency.CurrencyKey
+                        });
+                        virtualCurrency.IsUsed = true;
+                        _virtualCurrencyService.Update(virtualCurrency);
+                    }
+                    else
+                    {
+                        outOfStock.Add(new ReturnOrderDto
+                        {
+                            Key ="Stokta Yok",
+                            ProductName = product.ProductName,
+                        });
+                    }
+                }
+
                 if (productOrderItems.TryGetValue(product.ProductId, out var existingOrderItem))
                 {
                     existingOrderItem.Quantity++;
@@ -99,17 +150,22 @@ namespace Business.Concrete
                         SubTotal = product.Price
                     };
 
+
                     productOrderItems.Add(product.ProductId, orderItem);
                 }
                 order.TotalAmount += product.Price;
             }
             foreach (var orderItem in productOrderItems.Values)
             {
-                _orderItemDal.Add(orderItem);
+                _orderItemService.Add(orderItem);
             }
 
             _orderDal.Update(order);
-            return new SuccessResult("Sipariş başarıyla oluşturuldu");
+            if(outOfStock.Count > 0)
+            {
+                return new ErrorDataResult<List<ReturnOrderDto>>(outOfStock,"Bazı ürünler stokta yok. Lütfen bu ürünleri sepetten çıkartınız.");
+            }
+            return new SuccessDataResult<List<ReturnOrderDto>>(returnOrderDto,"Sipariş başarıyla oluşturuldu");
         }
 
 

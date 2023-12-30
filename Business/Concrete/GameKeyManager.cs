@@ -59,6 +59,10 @@ namespace Business.Concrete
             _gameKeyDal.Update(gameKey);
             return new SuccessResult("Güncellendi");
         }
-        
+
+        public async Task<IDataResult<GameKey>> GetIfİnStockByProductId(int productId)
+        {
+            return new SuccessDataResult<GameKey>(await _gameKeyDal.Get(gk => gk.ProductId == productId && gk.IsUsed == false));
+        }
     }
 }
