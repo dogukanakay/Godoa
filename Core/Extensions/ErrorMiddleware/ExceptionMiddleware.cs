@@ -70,7 +70,7 @@ namespace Core.Extensions.ErrorMiddleware
             return httpContext.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = httpContext.Response.StatusCode,
-                Message = message
+                Message = e.Message
             }.ToString());
 
         }

@@ -29,6 +29,7 @@ namespace WebApi.Controllers
         [HttpPost("add")]
         public IActionResult Add(VirtualCurrency virtualCurrency)
         {
+            virtualCurrency.IsUsed = false;
             var result = _virtualCurrencyService.Add(virtualCurrency);
             if (result.Success)
             {

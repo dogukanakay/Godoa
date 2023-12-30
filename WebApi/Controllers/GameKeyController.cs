@@ -30,6 +30,7 @@ namespace WebApi.Controllers
         [HttpPost("add")]
         public IActionResult Add(GameKey gameKey)
         {
+            gameKey.IsUsed = false;
             var result = _gameKeyService.Add(gameKey);
             if (result.Success)
             {

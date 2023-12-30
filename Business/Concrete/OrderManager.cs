@@ -5,17 +5,10 @@ using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Caching;
 using Core.Aspects.Validation;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
-using Core.Entities.Abstract;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -74,8 +67,10 @@ namespace Business.Concrete
 
         [CacheRemoveAspect("IOrderService.Get")]
         [TransactionScopeAspect]
-        public IDataResult<List<ReturnOrderDto>> MakeOrder(Product[] products, int userId)
+        [LogAspect(typeof(FileLogger))]
+        public IDataResult<List<ReturnOrderDto>> MakeOrder(List<Product> products, int userId)
         {
+           
             Order order = new Order()
             {
                 OrderId = 0,
@@ -93,14 +88,22 @@ namespace Business.Concrete
 
             foreach (var product in products)
             {
+                bool isInStock = false;
                 if (product.ProductCategoryId == 1)
                 {
                     var gameKey = _gameKeyService.GetIfİnStockByProductId(product.ProductId).Result.Data;
                     if (gameKey != null)
                     {
-                       
+                        isInStock = true;
+                        returnOrderDto.Add(new ReturnOrderDto
+                        {
+                            Key = gameKey.KeyOfGame,
+                            ProductName = product.ProductName,
+                        });
+
                         gameKey.IsUsed = true;
                         _gameKeyService.Update(gameKey);
+                      
 
                     }
                     else
@@ -117,6 +120,7 @@ namespace Business.Concrete
                     var virtualCurrency = _virtualCurrencyService.GetIfInStockByProductId(product.ProductId).Result.Data;
                     if(virtualCurrency != null)
                     {
+                        isInStock = true;
                         returnOrderDto.Add(new ReturnOrderDto
                         {
                             ProductName = product.ProductName,
@@ -134,26 +138,31 @@ namespace Business.Concrete
                         });
                     }
                 }
-
-                if (productOrderItems.TryGetValue(product.ProductId, out var existingOrderItem))
+                if (isInStock)
                 {
-                    existingOrderItem.Quantity++;
-                    existingOrderItem.SubTotal += product.Price;
-                }
-                else
-                {
-                    OrderItem orderItem = new OrderItem()
+                    if (productOrderItems.TryGetValue(product.ProductId, out var existingOrderItem))
                     {
-                        OrderId = order.OrderId,
-                        ProductId = product.ProductId,
-                        Quantity = 1,
-                        SubTotal = product.Price
-                    };
+                        existingOrderItem.Quantity++;
+                        existingOrderItem.SubTotal += product.Price;
+                    }
+                    else
+                    {
+                        OrderItem orderItem = new OrderItem()
+                        {
+                            OrderId = order.OrderId,
+                            ProductId = product.ProductId,
+                            Quantity = 1,
+                            SubTotal = product.Price
+                        };
 
 
-                    productOrderItems.Add(product.ProductId, orderItem);
+                        productOrderItems.Add(product.ProductId, orderItem);
+                    }
+                    order.TotalAmount += product.Price;
                 }
-                order.TotalAmount += product.Price;
+
+               
+                
             }
             foreach (var orderItem in productOrderItems.Values)
             {
@@ -163,7 +172,8 @@ namespace Business.Concrete
             _orderDal.Update(order);
             if(outOfStock.Count > 0)
             {
-                return new ErrorDataResult<List<ReturnOrderDto>>(outOfStock,"Bazı ürünler stokta yok. Lütfen bu ürünleri sepetten çıkartınız.");
+                string productNames = string.Join(", ", outOfStock.Select(dto => dto.ProductName));
+                throw new Exception("Bu ürünler stokta yok => " + productNames );
             }
             return new SuccessDataResult<List<ReturnOrderDto>>(returnOrderDto,"Sipariş başarıyla oluşturuldu");
         }
