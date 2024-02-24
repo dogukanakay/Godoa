@@ -52,5 +52,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<VirtualCurrency>(await _virtualCurrencyDal.Get(v => v.ProductId == productId && v.IsUsed==false));
         }
+
+        public async Task<IDataResult<List<VirtualCurrencyDetailDto>>> GetVirtualCurrencyDetails()
+        {
+            return new SuccessDataResult<List<VirtualCurrencyDetailDto>>(await _virtualCurrencyDal.GetVirtualCurrencyDetails());
+        }
     }
 }

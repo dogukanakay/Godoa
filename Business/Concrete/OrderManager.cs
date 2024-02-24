@@ -68,10 +68,9 @@ namespace Business.Concrete
         [CacheRemoveAspect("IOrderService.Get")]
         [TransactionScopeAspect]
         [LogAspect(typeof(FileLogger))]
-        public IDataResult<List<ReturnOrderDto>> MakeOrder(List<Product> products, int userId)
+        public IDataResult<List<ReturnOrderDto>> CreateOrderFromProducts(List<Product> orderedProducts, int userId)
         {
-           
-            Order order = new Order()
+            Order order = new Order
             {
                 OrderId = 0,
                 OrderDate = DateTime.Now,
@@ -79,6 +78,7 @@ namespace Business.Concrete
                 TotalAmount = 0,
                 Status = true
             };
+
             List<ReturnOrderDto> returnOrderDto = new List<ReturnOrderDto>();
             List<ReturnOrderDto> outOfStock = new List<ReturnOrderDto>();
 
@@ -86,97 +86,118 @@ namespace Business.Concrete
 
             Dictionary<int, OrderItem> productOrderItems = new Dictionary<int, OrderItem>();
 
-            foreach (var product in products)
+            foreach (var product in orderedProducts)
             {
-                bool isInStock = false;
-                if (product.ProductCategoryId == 1)
-                {
-                    var gameKey = _gameKeyService.GetIfİnStockByProductId(product.ProductId).Result.Data;
-                    if (gameKey != null)
-                    {
-                        isInStock = true;
-                        returnOrderDto.Add(new ReturnOrderDto
-                        {
-                            Key = gameKey.KeyOfGame,
-                            ProductName = product.ProductName,
-                        });
+                bool isInStock = CheckStockAndAddToDtoList(product, returnOrderDto, outOfStock);
 
-                        gameKey.IsUsed = true;
-                        _gameKeyService.Update(gameKey);
-                      
-
-                    }
-                    else
-                    {
-                        outOfStock.Add(new ReturnOrderDto
-                        {
-                            Key = "Stokta Yok",
-                            ProductName = product.ProductName,
-                        });
-                    }
-                }
-                else if (product.ProductCategoryId == 2)
-                {
-                    var virtualCurrency = _virtualCurrencyService.GetIfInStockByProductId(product.ProductId).Result.Data;
-                    if(virtualCurrency != null)
-                    {
-                        isInStock = true;
-                        returnOrderDto.Add(new ReturnOrderDto
-                        {
-                            ProductName = product.ProductName,
-                            Key = virtualCurrency.CurrencyKey
-                        });
-                        virtualCurrency.IsUsed = true;
-                        _virtualCurrencyService.Update(virtualCurrency);
-                    }
-                    else
-                    {
-                        outOfStock.Add(new ReturnOrderDto
-                        {
-                            Key ="Stokta Yok",
-                            ProductName = product.ProductName,
-                        });
-                    }
-                }
                 if (isInStock)
                 {
-                    if (productOrderItems.TryGetValue(product.ProductId, out var existingOrderItem))
-                    {
-                        existingOrderItem.Quantity++;
-                        existingOrderItem.SubTotal += product.Price;
-                    }
-                    else
-                    {
-                        OrderItem orderItem = new OrderItem()
-                        {
-                            OrderId = order.OrderId,
-                            ProductId = product.ProductId,
-                            Quantity = 1,
-                            SubTotal = product.Price
-                        };
-
-
-                        productOrderItems.Add(product.ProductId, orderItem);
-                    }
-                    order.TotalAmount += product.Price;
+                    UpdateOrderItems(product, productOrderItems, order);
                 }
-
-               
-                
             }
+
+            AddOrderItemsToDatabase(productOrderItems);
+
+            _orderDal.Update(order);
+
+            if (outOfStock.Count > 0)
+            {
+                string productNames = string.Join(", ", outOfStock.Select(dto => dto.ProductName));
+                throw new InvalidOperationException("Bu ürünler stokta yok => " + productNames);
+            }
+
+            return new SuccessDataResult<List<ReturnOrderDto>>(returnOrderDto, "Sipariş başarıyla oluşturuldu");
+        }
+
+        private bool CheckStockAndAddToDtoList(Product product, List<ReturnOrderDto> returnOrderDto, List<ReturnOrderDto> outOfStock)
+        {
+            bool isInStock = false;
+
+            if (product.ProductCategoryId == 1)
+            {
+                var gameKey = _gameKeyService.GetIfİnStockByProductId(product.ProductId).Result.Data;
+
+                if (gameKey != null)
+                {
+                    isInStock = true;
+                    returnOrderDto.Add(new ReturnOrderDto
+                    {
+                        Key = gameKey.KeyOfGame,
+                        ProductName = product.ProductName,
+                    });
+
+                    gameKey.IsUsed = true;
+                    _gameKeyService.Update(gameKey);
+                }
+                else
+                {
+                    outOfStock.Add(new ReturnOrderDto
+                    {
+                        Key = "Stokta Yok",
+                        ProductName = product.ProductName,
+                    });
+                }
+            }
+            else if (product.ProductCategoryId == 2)
+            {
+                var virtualCurrency = _virtualCurrencyService.GetIfInStockByProductId(product.ProductId).Result.Data;
+
+                if (virtualCurrency != null)
+                {
+                    isInStock = true;
+                    returnOrderDto.Add(new ReturnOrderDto
+                    {
+                        ProductName = product.ProductName,
+                        Key = virtualCurrency.CurrencyKey
+                    });
+
+                    virtualCurrency.IsUsed = true;
+                    _virtualCurrencyService.Update(virtualCurrency);
+                }
+                else
+                {
+                    outOfStock.Add(new ReturnOrderDto
+                    {
+                        Key = "Stokta Yok",
+                        ProductName = product.ProductName,
+                    });
+                }
+            }
+
+            return isInStock;
+        }
+
+        private void UpdateOrderItems(Product product, Dictionary<int, OrderItem> productOrderItems, Order order)
+        {
+            if (productOrderItems.TryGetValue(product.ProductId, out var existingOrderItem))
+            {
+                existingOrderItem.Quantity++;
+                existingOrderItem.SubTotal += product.Price;
+            }
+            else
+            {
+                OrderItem orderItem = new OrderItem
+                {
+                    OrderId = order.OrderId,
+                    ProductId = product.ProductId,
+                    Quantity = 1,
+                    SubTotal = product.Price
+                };
+
+                productOrderItems.Add(product.ProductId, orderItem);
+            }
+
+            order.TotalAmount += product.Price;
+        }
+
+        private void AddOrderItemsToDatabase(Dictionary<int, OrderItem> productOrderItems)
+        {
             foreach (var orderItem in productOrderItems.Values)
             {
                 _orderItemService.Add(orderItem);
             }
-
-            _orderDal.Update(order);
-            if(outOfStock.Count > 0)
-            {
-                string productNames = string.Join(", ", outOfStock.Select(dto => dto.ProductName));
-                throw new Exception("Bu ürünler stokta yok => " + productNames );
-            }
-            return new SuccessDataResult<List<ReturnOrderDto>>(returnOrderDto,"Sipariş başarıyla oluşturuldu");
         }
+
 
 
     }

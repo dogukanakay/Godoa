@@ -12,6 +12,6 @@ namespace DataAccess.Abstract
 {
     public interface IVirtualCurrencyDal : IEntityRepository<VirtualCurrency>
     {
-       // Task<int> GetStockQuantityOfProduct(int productId);
+        Task<List<VirtualCurrencyDetailDto>> GetVirtualCurrencyDetails();
     }
 }

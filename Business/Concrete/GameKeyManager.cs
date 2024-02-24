@@ -64,5 +64,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<GameKey>(await _gameKeyDal.Get(gk => gk.ProductId == productId && gk.IsUsed == false));
         }
+
+        public async Task<IDataResult<List<GameKeyDetailDto>>> GetGameKeyDetails()
+        {
+            return new SuccessDataResult<List<GameKeyDetailDto>>(await _gameKeyDal.GetGameKeyDetails());
+        }
     }
 }

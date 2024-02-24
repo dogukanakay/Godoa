@@ -14,9 +14,9 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfProductDal : EfEntityRepositoryBase<Product, GodoaContext>, IProductDal
     {
-        
 
-        private IQueryable<ProductDetailDto> GetProductDetailQuery(GodoaContext context) 
+
+        private IQueryable<ProductDetailDto> GetProductDetailQuery(GodoaContext context)
         {
             return from p in context.Products
                    join pg in context.ProductCategories on p.ProductCategoryId equals pg.ProductCategoryId
@@ -24,16 +24,17 @@ namespace DataAccess.Concrete.EntityFramework
 
                    select new ProductDetailDto
                    {
-                      ProductId = p.ProductId,
-                      ProductCategoryId= p.ProductCategoryId,
-                      ProductCategoryName =pg.ProductCategoryName,
-                      ProductName = p.ProductName,
-                      GameName =  g.GameName,
-                      Description = p.Description,
-                      Price = p.Price,
-                      StockQuantity = pg.ProductCategoryId == 1 ?
-                               context.GameKeys.Count(gk => gk.ProductId == p.ProductId && !gk.IsUsed) :
-                               context.VirtualCurrencies.Count(vc => vc.ProductId == p.ProductId && !vc.IsUsed),
+                       ProductId = p.ProductId,
+                       ProductCategoryId = p.ProductCategoryId,
+                       ProductCategoryName = pg.ProductCategoryName,
+                       ProductName = p.ProductName,
+                       GameName = g.GameName,
+                       Description = p.Description,
+                       Price = p.Price,
+                       StockQuantity = pg.ProductCategoryId == 2 ?
+                                context.VirtualCurrencies.Count(vc => vc.ProductId == p.ProductId && !vc.IsUsed) :
+                               context.GameKeys.Count(gk => gk.ProductId == p.ProductId && !gk.IsUsed)
+                               ,
                        Status = p.Status,
 
 
@@ -53,7 +54,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (GodoaContext context = new GodoaContext())
             {
-                var result = GetProductDetailQuery(context).Where(p=>p.ProductCategoryId == categoryId);
+                var result = GetProductDetailQuery(context).Where(p => p.ProductCategoryId == categoryId);
                 return await result.ToListAsync();
             }
         }

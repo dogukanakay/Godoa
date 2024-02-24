@@ -27,14 +27,14 @@ namespace Business.Concrete
         [LogAspect(typeof(FileLogger))]
         [ValidationAspect(typeof(PlatformValidator))]
         [CacheRemoveAspect("IPlatformService.Get")]
-        //[SecuredOperation("admin,employee")]
+        [SecuredOperation("admin,employee")]
         public IResult Add(Platform platform)
         {
             _platformDal.Add(platform);
             return new SuccessResult("Eklendi");
         }
         [CacheRemoveAspect("IPlatformService.Get")]
-        //[SecuredOperation("admin,employee")]
+        [SecuredOperation("admin,employee")]
         public IResult Delete(Platform platform)
         {
             _platformDal.Delete(platform);
@@ -55,7 +55,7 @@ namespace Business.Concrete
 
         [CacheRemoveAspect("IPlatformService.Get")]
         [ValidationAspect(typeof(PlatformValidator))]
-        //[SecuredOperation("admin,employee")]
+        [SecuredOperation("admin,employee")]
         public IResult Update(Platform platform)
         {
             _platformDal.Update(platform);

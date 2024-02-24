@@ -84,7 +84,7 @@ namespace WebApi.Controllers
         public IActionResult MakeOrder(List<Product> products)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            var result = _orderService.MakeOrder(products, userId);
+            var result = _orderService.CreateOrderFromProducts(products, userId);
             if (result.Success)
             {
                 return Ok(result);

@@ -18,6 +18,7 @@ namespace Business.Abstract
         Task<IDataResult<List<GameKey>>> GetAll();
         Task<IDataResult<GameKey>> GetById(int gameKeyId);
         Task<IDataResult<GameKey>> GetIfİnStockByProductId(int productId);
+        Task<IDataResult<List<GameKeyDetailDto>>> GetGameKeyDetails();
         
     }
 }

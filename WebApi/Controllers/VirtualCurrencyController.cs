@@ -67,6 +67,17 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
-        
+
+        [HttpGet("getalldetails")]
+        public async Task<IActionResult> GetAllDetails()
+        {
+            var result = await _virtualCurrencyService.GetVirtualCurrencyDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
 }

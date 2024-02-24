@@ -15,29 +15,32 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfGameKeyDal : EfEntityRepositoryBase<GameKey, GodoaContext>, IGameKeyDal
     {
-        private IQueryable<GameKeyDetailDto> GetGameKeysByProductId(GodoaContext context, int productId)
+        private IQueryable<GameKeyDetailDto> GetGameKeyDetailsQuery(GodoaContext context)
         {
             return from gk in context.GameKeys
                    join g in context.Games on gk.GameId equals g.GameId
                    join p in context.Products on gk.ProductId equals p.ProductId
-                   where gk.ProductId == productId && !gk.IsUsed
                    select new GameKeyDetailDto
                    {
+                       GameId = gk.GameId,
+                       ProductId = gk.ProductId,
                        GameKeyId = gk.GameKeyId,
                        GameName = g.GameName,
                        ProductName = p.ProductName,
-                       KeyDetail = gk.KeyOfGame
+                       KeyDetail = gk.KeyOfGame,
+                       IsUsed = gk.IsUsed == false ? "Kullanılabilir" : "Kullanıldı"
                       
                    };
         }
-        //public async Task<int> GetStockQuantityOfProduct(int productId)
-        //{
-        //    using (GodoaContext context = new GodoaContext())
-        //    {
-        //        var result = GetGameKeysByProductId(context, productId);
-        //        return await result.CountAsync();
-        //    }
-            
-        //}
+      
+
+        public async Task<List<GameKeyDetailDto>> GetGameKeyDetails()
+        {
+            using (GodoaContext context = new GodoaContext())
+            {
+                var result = GetGameKeyDetailsQuery(context).OrderByDescending(gk => gk.IsUsed);
+                return await result.ToListAsync();
+            }
+        }
     }
 }

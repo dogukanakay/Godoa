@@ -17,6 +17,7 @@ namespace Business.Abstract
         Task<IDataResult<VirtualCurrency>> GetIfInStockByProductId(int productId);
         Task<IDataResult<List<VirtualCurrency>>> GetAll();
         Task<IDataResult<VirtualCurrency>> GetById(int virtualCurrencyId);
+        Task<IDataResult<List<VirtualCurrencyDetailDto>>> GetVirtualCurrencyDetails();
 
 
     }
